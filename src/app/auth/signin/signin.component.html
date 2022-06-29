@@ -1,0 +1,48 @@
+<div class="vh-100 wh-100">
+  <div class="row h-100 w-100" >
+    <div class="col-sm-6">
+      <div class="d-flex w-100 h-100" style="justify-content: center; align-items: center;">
+        <div class="w-75 text-left">
+          <h1 class="main-color" style="font-size: 30px; font-weight: bolder;"><span style="font-size: 60px">T</span>awasol</h1>
+          <h2 class="text-muted">Tawasol gives you the ability to connect with people and share what you want with them.</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="d-flex w-100 h-100" style="justify-content: center; align-items: center;">
+        <div>
+          <p></p>
+          <form [formGroup]="signinFrom" (ngSubmit)="login(signinFrom)" class="ms-auto" style="width: 95%;">
+
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input formControlName="email" matInput placeholder="*Ex/ abc@abc.abc">
+                  <mat-icon matSuffix><i class="fa-solid fa-envelope"></i></mat-icon>
+                  <mat-error *ngIf="signinFrom.get('email')?.hasError('required')">Email is required</mat-error>
+                  <mat-error *ngIf="signinFrom.get('email')?.hasError('email')">Email inValid</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Password</mat-label>
+                  <input formControlName="password" [type]="hidePassword?'password' : 'text'" matInput placeholder="*Password">
+                  <mat-icon (click)="hidePassword = !hidePassword" style="cursor: pointer;" matSuffix> <i [ngClass]="hidePassword?'fa-solid fa-eye':'fa-solid fa-eye-slash'"></i> </mat-icon>
+                  <mat-error *ngIf="signinFrom.get('password')?.hasError('required')">Password is required</mat-error>
+                </mat-form-field>
+
+
+                <button [disabled]="signinFrom.invalid" mat-flat-button color="primary" class="w-100">SignIn</button>
+          </form>
+
+          <div style="width: 60%;" class="m-auto">
+            <hr>
+          </div>
+          <div class="ms-auto" style="width: 95%;">
+
+          <a routerLink="/signup" mat-flat-button color="warn" class="w-100">SignUp</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

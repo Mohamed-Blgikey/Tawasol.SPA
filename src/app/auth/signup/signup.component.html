@@ -1,0 +1,95 @@
+<div class="vh-100 wh-100">
+  <div class="row h-100 w-100" >
+    <div class="col-sm-6">
+      <div class="d-flex w-100 h-100" style="justify-content: center; align-items: center;">
+        <div class="w-75 text-left">
+          <h1 class="main-color" style="font-size: 30px; font-weight: bolder;"><span style="font-size: 60px">T</span>awasol</h1>
+          <h2 class="text-muted">Tawasol gives you the ability to connect with people and share what you want with them.</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="d-flex w-100 h-100" style="justify-content: center; align-items: center;">
+        <div>
+          <form [formGroup]="SignupFrom" (ngSubmit)="Signup(SignupFrom)" class="ms-auto" style="width: 95%;">
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>First Name</mat-label>
+                  <input formControlName="firstName" matInput placeholder="*First Name">
+                  <mat-icon matSuffix><i class="fa-solid fa-user"></i></mat-icon>
+                  <mat-error *ngIf="SignupFrom.get('firstName')?.hasError('required')">First Name is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Last Name</mat-label>
+                  <input formControlName="lastName" matInput placeholder="*Last Name">
+                  <mat-icon matSuffix><i class="fa-solid fa-user"></i></mat-icon>
+                  <mat-error *ngIf="SignupFrom.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input formControlName="email" matInput placeholder="*Ex/ abc@abc.abc">
+                  <mat-icon matSuffix><i class="fa-solid fa-envelope"></i></mat-icon>
+                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('required')">Email is required</mat-error>
+                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('email')">Email inValid</mat-error>
+                </mat-form-field>
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Password</mat-label>
+                  <input formControlName="password" [type]="hidePassword?'password' : 'text'" matInput placeholder="*Password">
+                  <mat-icon (click)="hidePassword = !hidePassword" style="cursor: pointer;" matSuffix> <i [ngClass]="hidePassword?'fa-solid fa-eye':'fa-solid fa-eye-slash'"></i> </mat-icon>
+                  <mat-error *ngIf="SignupFrom.get('password')?.hasError('required')">Password is required</mat-error>
+                  <mat-error *ngIf="SignupFrom.get('password')?.hasError('minlength')">Min length 6</mat-error>
+
+                </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Confirm Password</mat-label>
+                  <input formControlName="cpassword" [type]="hideCPassword?'password' : 'text'" matInput placeholder="*Confirm Password">
+                  <mat-icon (click)="hideCPassword = !hideCPassword" style="cursor: pointer;" matSuffix> <i [ngClass]="hideCPassword?'fa-solid fa-eye':'fa-solid fa-eye-slash'"></i> </mat-icon>
+                  <mat-error *ngIf="SignupFrom.get('cpassword')?.hasError('required')">Password is required</mat-error>
+                  <mat-error *ngIf="SignupFrom.get('cpassword')?.hasError('minlength')">Min length 6</mat-error>
+
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div>
+              <mat-error *ngIf="SignupFrom.errors?.['passwordsDontMatch']">
+                Passwords should match
+              </mat-error>
+            </div>
+
+                <div class="pt-2 pb-4">
+
+                  <mat-radio-group formControlName="gender" aria-label="Select an option">
+                    <mat-radio-button value="1">Male</mat-radio-button>
+                    <mat-radio-button class="ms-3" value="0">Femail</mat-radio-button>
+                    <mat-error *ngIf="SignupFrom.get('gender')?.hasError('required') && SignupFrom.get('gender')?.touched">Gender is required</mat-error>
+
+                  </mat-radio-group>
+                </div>
+                <button [disabled]="SignupFrom.invalid" mat-flat-button color="primary" class="w-100">SignUp</button>
+          </form>
+
+          <div style="width: 60%;" class="m-auto">
+            <hr>
+          </div>
+          <div class="ms-auto" style="width: 95%;">
+
+          <a routerLink="/login" mat-flat-button color="warn" class="w-100">SignIn</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
