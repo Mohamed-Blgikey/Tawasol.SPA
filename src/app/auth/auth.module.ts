@@ -6,18 +6,22 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '../core/core.module';
+import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
 
 
 @NgModule({
   declarations: [
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    ConfirmemailComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ]
 })
 export class AuthModule { }
