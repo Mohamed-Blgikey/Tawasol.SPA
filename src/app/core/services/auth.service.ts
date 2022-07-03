@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http:HttpClient,private toast:HotToastService) { }
 
   Login(obj:any):Observable<Authresponse>{
-    return this.http.post<Authresponse>(`${this.baseUrl}${AuthApi.Login}`,obj).pipe()
+    return this.http.post<Authresponse>(`${this.baseUrl}${AuthApi.Login}`,obj)
   }
 
   Register(obj:any):Observable<Authresponse>{

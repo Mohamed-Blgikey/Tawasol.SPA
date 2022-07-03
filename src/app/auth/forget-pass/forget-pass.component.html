@@ -1,0 +1,66 @@
+<div class="vh-100 wh-100">
+  <div class="row h-100 w-100">
+    <div class="col-sm-6">
+      <div
+        class="d-flex w-100 h-100"
+        style="justify-content: center; align-items: center"
+      >
+        <div class="w-75 text-left">
+          <h1 class="main-color" style="font-size: 30px; font-weight: bolder">
+            <span style="font-size: 60px">T</span>awasol
+          </h1>
+          <h2 class="text-muted">
+            Tawasol gives you the ability to connect with people and share what
+            you want with them.
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div
+        class="d-flex w-100 h-100"
+        style="justify-content: center; align-items: center"
+      >
+        <div>
+          <form [formGroup]="forgetFrom" (ngSubmit)="submit(forgetFrom)">
+            <mat-form-field class="w-100" appearance="fill">
+              <mat-label>Email</mat-label>
+              <input
+                formControlName="email"
+                matInput
+                placeholder="*Ex/ abc@abc.abc"
+              />
+              <mat-icon matSuffix
+                ><i class="fa-solid fa-envelope"></i
+              ></mat-icon>
+              <mat-error *ngIf="forgetFrom.get('email')?.hasError('required')"
+                >Email is required</mat-error
+              >
+              <mat-error *ngIf="forgetFrom.get('email')?.hasError('email')"
+                >Email inValid</mat-error
+              >
+            </mat-form-field>
+
+            <button
+              [disabled]="forgetFrom.invalid"
+              mat-flat-button
+              color="primary"
+              class="w-100"
+            >
+              Done
+            </button>
+
+          </form>
+
+          <div style="width: 60%" class="m-auto">
+            <hr />
+          </div>
+          <div >
+            <a routerLink="/auth/login" mat-flat-button color="warn" class="w-100">SignIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
