@@ -37,6 +37,9 @@
                   <mat-icon matSuffix><i class="fa-solid fa-envelope"></i></mat-icon>
                   <mat-error *ngIf="SignupFrom.get('email')?.hasError('required')">Email is required</mat-error>
                   <mat-error *ngIf="SignupFrom.get('email')?.hasError('email')">Email inValid</mat-error>
+                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('emailExists')">
+                    This email address is already registered. Please use another one.
+                  </mat-error>
                 </mat-form-field>
             <div class="row">
               <div class="col-6">

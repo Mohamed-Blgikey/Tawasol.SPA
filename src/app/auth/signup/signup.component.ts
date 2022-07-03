@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
     }
     // console.log(obj);
     this.auth.Register(obj).subscribe(res=>{
-      console.log(res.message,res.token,res.expiresOn);
+      // console.log(res.message,res.token,res.expiresOn);
       if (res.message == 'success') {
         this.alert.success(`Wellcom ${res.fullName} ^_^`)
         this.alert.close("closeLoading")
@@ -63,7 +63,11 @@ export class SignupComponent implements OnInit {
   }
   private CreateForm(){
     this.SignupFrom = this.fb.group({
-      email:['',[Validators.required,Validators.email]],
+      email:['',{
+        validators: [Validators.required, Validators.email],
+        asyncValidators: [this.auth.uniqueEmailValidator()],
+        updateOn:'blur'
+      }],
       password:['',[Validators.required,Validators.minLength(6)]],
       cpassword:['',[Validators.required,Validators.minLength(6)]],
       firstName:['',[Validators.required]],

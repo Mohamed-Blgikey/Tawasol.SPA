@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
     this.alert.loading("Logining in ...",{duration : 100000,id:"closeLoading"})
     // console.log(signinFrom.value);
     this.auth.Login(signinFrom.value).subscribe(res=>{
-      console.log(res);
+      // console.log(res);
       if (res.message != 'success') {
        this.alert.error(res.message)
        this.alert.close("closeLoading")
