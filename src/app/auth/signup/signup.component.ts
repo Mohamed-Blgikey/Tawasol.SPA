@@ -49,17 +49,15 @@ export class SignupComponent implements OnInit {
     // console.log(obj);
     this.auth.Register(obj).subscribe(res=>{
       // console.log(res.message,res.token,res.expiresOn);
+      this.alert.close("closeLoading")
       if (res.message == 'success') {
         this.alert.success(`Wellcom ${res.fullName} ^_^`)
-        this.alert.close("closeLoading")
-        this.router.navigate(['/auth/login'])
+        this.router.navigate(['/auth'])
         SignupFrom.reset();
       }else{
         this.alert.error(res.message)
-        this.alert.close("closeLoading")
       }
     })
-    // this.router.navigate(['/login'])
   }
   private CreateForm(){
     this.SignupFrom = this.fb.group({

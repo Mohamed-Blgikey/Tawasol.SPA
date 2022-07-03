@@ -27,6 +27,10 @@ export class AuthService {
     return this.http.post<Authresponse>(`${this.baseUrl}${AuthApi.Confirm}`,obj)
   }
 
+  ForgetPass(obj:any):Observable<Authresponse>{
+    return this.http.post<Authresponse>(`${this.baseUrl}${AuthApi.ForgetPass}`,obj)
+  }
+
 
   uniqueEmailValidator():AsyncValidatorFn{
     return (control:AbstractControl):Observable<ValidationErrors|null> =>{
