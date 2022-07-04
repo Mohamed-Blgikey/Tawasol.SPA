@@ -32,7 +32,7 @@ export class ForgetPassComponent implements OnInit {
         this.alert.warning(res.message)
       }else{
         this.alert.success(res.message);
-        this.router.navigate(['/auth'])
+        this.router.navigate(['/'])
       }
     })
     // console.log(form.value);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -35,12 +37,17 @@ export function passwordsMatch():ValidatorFn{
 export class ResetPassComponent implements OnInit {
   hidePassword:boolean = true;
   hideCPassword:boolean = true;
-
   resetFrom!:FormGroup;
-  constructor(private fb:FormBuilder,private alert:HotToastService) { }
+  email:string|undefined;
+  token:string|undefined;
+  constructor(private fb:FormBuilder,private alert:HotToastService,private active:ActivatedRoute,private auth:AuthService,private router:Router) { }
 
   ngOnInit(): void {
+    this.email = this.active.snapshot.queryParams['email']
+    this.token = this.active.snapshot.queryParamMap.get('token')?.split(' ').join('%')
     this.createForm();
+    // console.log(this.email,this.token);
+
   }
 
   createForm(){
@@ -51,8 +58,28 @@ export class ResetPassComponent implements OnInit {
   }
 
   submit(form:FormGroup){
-    this.alert.success("sada")
-    console.log(form.value);
+    this.alert.loading("loading ...",{duration:1000000000,id:"CloseLoading"});
+    let obj = {
+      email : this.email,
+      token : this.token,
+      password : form.value.password
+    }
+
+    if (obj.email == undefined|| obj.token == undefined||obj.password == undefined) {
+      this.alert.close("CloseLoading");
+      this.alert.info("Check inbox")
+
+    }else{
+      this.auth.ResetPass(obj).subscribe(res=>{
+        this.alert.close("CloseLoading");
+        if (res.message == "Some thing Error") {
+          this.alert.error(res.message)
+        }else{
+          this.alert.success(res.message);
+          this.router.navigate(['/'])
+        }
+      })
+    }
 
   }
 }

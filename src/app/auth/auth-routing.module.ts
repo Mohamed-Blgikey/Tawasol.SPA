@@ -23,7 +23,7 @@ const routes: Routes = [
     component : SignupComponent,
   },
   {
-    path:'confirmemail/:email/:token',
+    path:'confirmemail',
     component:ConfirmemailComponent
   },
   {

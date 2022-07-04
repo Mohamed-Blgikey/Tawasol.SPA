@@ -51,8 +51,8 @@ export class SignupComponent implements OnInit {
       // console.log(res.message,res.token,res.expiresOn);
       this.alert.close("closeLoading")
       if (res.message == 'success') {
-        this.alert.success(`Wellcom ${res.fullName} ^_^`)
-        this.router.navigate(['/auth'])
+        this.alert.success(`You are Wellcom ${res.fullName} ^_^`)
+        this.router.navigate(['/'])
         SignupFrom.reset();
       }else{
         this.alert.error(res.message)

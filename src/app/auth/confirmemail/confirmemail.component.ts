@@ -16,8 +16,11 @@ export class ConfirmemailComponent implements OnInit {
   constructor(private active:ActivatedRoute ,private auth:AuthService,private alert:HotToastService,private route:Router) { }
 
   ngOnInit(): void {
-    this.email = this.active.snapshot.params['email'];
-    this.token = this.active.snapshot.params['token'];
+    this.email = this.active.snapshot.queryParams['email'];
+    this.token = this.active.snapshot.queryParams['token'];
+    // console.log(this.email);
+    // console.log(this.token);
+
   }
 
 
@@ -27,17 +30,26 @@ export class ConfirmemailComponent implements OnInit {
       email : this.email,
       token : this.token
     }
-    this.auth.ConfirmeEmail(obj).subscribe(res=>{
-      if (res.message == "pls create acount first") {
-        this.alert.close("closeLoading");
-        this.alert.warning(res.message);
-        this.route.navigate(["/auth/signup"])
-      }else{
-        this.alert.close("closeLoading");
-        this.alert.success(res.message);
-        this.route.navigate(["/auth/login"])
-      }
-    })
+    // console.log(obj);
+
+    if (obj.email == undefined|| obj.token == undefined) {
+      this.alert.close("closeLoading");
+      this.alert.info("Check inbox")
+
+
+    }else{
+      this.auth.ConfirmeEmail(obj).subscribe(res=>{
+        if (res.message == "pls create acount first") {
+          this.alert.close("closeLoading");
+          this.alert.warning(res.message);
+          this.route.navigate(["/signup"])
+        }else{
+          this.alert.close("closeLoading");
+          this.alert.success(res.message);
+          this.route.navigate(["/login"])
+        }
+      })
+    }
   }
 
 }
