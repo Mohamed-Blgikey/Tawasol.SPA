@@ -5,7 +5,6 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { PagesComponent } from './pages.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../shared/material.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 
@@ -14,7 +13,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
   declarations: [
     PagesComponent,
     NavbarComponent,
-    HomeComponent,
 
   ],
   imports: [

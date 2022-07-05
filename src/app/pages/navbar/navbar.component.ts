@@ -10,10 +10,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class NavbarComponent implements OnInit {
 
   Name!:string;
+  CurrentUserId!:string;
   constructor(private router:Router,private auth:AuthService) { }
 
   ngOnInit(): void {
     this.Name = this.auth.user['_value'].fullName;
+    this.CurrentUserId = this.auth.user['_value'].nameid;
+    // console.log(this.CurrentUserId);
+
   }
 
   logOut(){
