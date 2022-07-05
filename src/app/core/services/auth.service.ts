@@ -1,19 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { HotToastService } from '@ngneat/hot-toast';
-import { catchError, map, Observable } from 'rxjs';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthApi } from '../APIS/Auth';
 import { Authresponse } from '../Models/authresponse';
 
+const helper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+
+  // const decodedToken = helper.decodeToken(myRawToken);
+  // const expirationDate = helper.getTokenExpirationDate(myRawToken);
+  // const isExpired = helper.isTokenExpired(myRawToken);
+  user = new BehaviorSubject(null);
+
   baseUrl = environment.baseUrl;
-  constructor(private http:HttpClient,private toast:HotToastService) { }
+  constructor(private http:HttpClient,private permissionsService:NgxPermissionsService) {
+    if (localStorage.getItem('TawasolToken') != null) {
+      this.SaveUserData();
+    }
+  }
 
   Login(obj:any):Observable<Authresponse>{
     return this.http.post<Authresponse>(`${this.baseUrl}${AuthApi.Login}`,obj)
@@ -46,5 +59,26 @@ export class AuthService {
         map(res => res.message != "pls create acount first" ? { emailExists: true } : null)
       )
     }
+  }
+
+
+  SaveUserData(){
+    let token:any = localStorage.getItem('TawasolToken');
+    this.user.next(helper.decodeToken(token))
+    // console.log(this.user.getValue());
+    this.loadPermissions();
+  }
+
+
+  loadPermissions(){
+    let Roles = this.user['_value'].roles;
+    // console.log(typeof(Roles));
+    if (typeof(Roles) == 'string') {
+      this.permissionsService.loadPermissions([Roles])
+    }else{
+      let role = Roles as string []
+      this.permissionsService.loadPermissions(role.map(x=>x))
+    }
+
   }
 }

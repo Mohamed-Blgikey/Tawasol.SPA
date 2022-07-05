@@ -33,6 +33,9 @@ export class SignupComponent implements OnInit {
   constructor(private fb:FormBuilder,private router:Router,private auth:AuthService,private alert:HotToastService) { }
 
   ngOnInit(): void {
+    if (this.auth.user.value != null) {
+      this.router.navigate(['/home'])
+    }
     this.CreateForm();
   }
 

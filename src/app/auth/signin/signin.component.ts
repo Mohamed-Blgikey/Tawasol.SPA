@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -11,9 +12,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class SigninComponent implements OnInit {
   hidePassword:boolean = true;
   signinFrom!:FormGroup;
-  constructor(private fb:FormBuilder, private auth:AuthService,private alert:HotToastService) { }
+  constructor(private fb:FormBuilder, private auth:AuthService,private alert:HotToastService,private router:Router) { }
 
   ngOnInit(): void {
+    if (this.auth.user.value != null) {
+      this.router.navigate(['/home'])
+    }
     this.CreateForm();
   }
 
@@ -27,6 +31,9 @@ export class SigninComponent implements OnInit {
        this.alert.close("closeLoading")
       }else{
         this.alert.success(`Wellcom ${res.fullName} ^_^`)
+        localStorage.setItem('TawasolToken',res.token);
+        this.auth.SaveUserData();
+        this.router.navigate(['/home'])
         this.alert.close("closeLoading")
         signinFrom.reset();
       }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 
@@ -8,10 +7,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
   declarations: [],
   imports: [
     CommonModule,
-    NgxPermissionsModule.forChild()
   ],
   exports:[
-    NgxPermissionsModule
   ]
 })
 export class CoreModule { }
