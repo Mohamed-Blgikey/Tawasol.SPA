@@ -1,2 +1,35 @@
-<p>{{User.fullName}}</p>
-<router-outlet></router-outlet>
+<!-- header -->
+<div style="height: 85vh; background-color: #2b2d2e;"  >
+  <!-- cover -->
+  <div style="height: 65%;">
+    <div  class="w-75 h-100 m-auto d-flex align-items-sm-end align-items-start justify-content-end p-sm-3 p-1" style="background-image: url(https://static.vecteezy.com/system/resources/thumbnails/002/380/002/small/diagonal-abstract-banner-with-blue-and-purple-template-free-vector.jpg); background-position: center; background-size: 100% 100%;">
+      <button mat-flat-button style="border: 1px solid white; ;background-color: gray; color: white;">Edit Cover</button>
+    </div>
+  </div>
+
+
+  <!-- details -->
+  <div style="height:35%;" class="w-75 mx-auto">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="position-relative d-flex justify-content-center align-content-center">
+          <img class="rounded-circle position-absolute " style="top: -80px; width: 200px;height:200px;border: 8px solid #242526;"  [src]="User.photoUrl" alt="">
+          <button class="position-absolute d-flex justify-content-center align-items-center" style="width: 40px !important; height: 40px !important; font-size: 20px; bottom: -90px;right: 40px ;background-color: gray; color: white;" mat-fab  aria-label="Example icon button with a delete icon">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </div>
+        <!-- <div style=" position: relative; top: -100px; " class="text-center rounded-circle m-auto">
+          <img class="rounded-circle mx-auto" style="left: 0; width: 200px;height:200px;border: 8px solid #242526;"  [src]="User.photoUrl" alt="">
+        </div> -->
+      </div>
+
+      <div class="col-sm-6 mt-5 mt-sm-0">
+        <div class="mt-5">
+          <h1 class="pt-3 pb-0 text-center text-sm-start">{{User.fullName}}</h1>
+          <p class="text-muted text-center text-sm-start" style="font-size: 20px;">Friends 1200 </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

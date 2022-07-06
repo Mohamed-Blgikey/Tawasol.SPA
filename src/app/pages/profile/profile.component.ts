@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +8,16 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class ProfileComponent implements OnInit {
   User:any;
+
   constructor(private active:ActivatedRoute) { }
+
+//   @HostListener('window:scroll', ['$event']) onScrollEvent($event:any) {
+//     console.log(window.pageYOffset);
+//     console.log(window.outerHeight);
+//     console.log(window.innerHeight);
+//     console.log(this.divCurtain.nativeElement.offsetHeight);
+//     ;
+// }
 
   ngOnInit(): void {
     this.active.data.subscribe(res=>{
@@ -17,5 +25,6 @@ export class ProfileComponent implements OnInit {
       this.User = res['user']
     })
   }
+
 
 }
