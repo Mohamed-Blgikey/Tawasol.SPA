@@ -1,6 +1,6 @@
 export interface Authresponse {
   message:string;
   token:string;
-  expiresOn:Date;
+  tokenExpire:Date;
   fullName:string;
 }

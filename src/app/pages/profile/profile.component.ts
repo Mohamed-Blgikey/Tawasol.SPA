@@ -8,11 +8,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(public auth:AuthService,private active:ActivatedRoute) { }
+  User:any;
+  constructor(private active:ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.active.snapshot.params['id']);
+    this.active.data.subscribe(res=>{
+      // console.log(res['user']);
+      this.User = res['user']
+    })
   }
 
 }

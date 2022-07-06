@@ -9,11 +9,11 @@ import { environment } from 'src/environments/environment';
 import { AuthApi } from '../APIS/Auth';
 import { Authresponse } from '../Models/authresponse';
 
-const helper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  helper = new JwtHelperService();
 
 
   // const decodedToken = helper.decodeToken(myRawToken);
@@ -63,12 +63,11 @@ export class AuthService {
 
 
   SaveUserData(){
-    let token:any = localStorage.getItem('TawasolToken');
-    this.user.next(helper.decodeToken(token))
-    // console.log(this.user.getValue());
+    const token:any = localStorage.getItem('TawasolToken');
+    this.user.next(this.helper.decodeToken(token))
+    console.log(this.user.getValue());
     this.loadPermissions();
   }
-
 
   loadPermissions(){
     let Roles = this.user['_value'].roles;
@@ -81,4 +80,5 @@ export class AuthService {
     }
 
   }
+
 }
