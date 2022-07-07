@@ -64,9 +64,15 @@ export class AuthService {
 
   SaveUserData(){
     const token:any = localStorage.getItem('TawasolToken');
-    this.user.next(this.helper.decodeToken(token))
-    // console.log(this.user.getValue());
-    this.loadPermissions();
+    if(this.helper.isTokenExpired(token)){
+      localStorage.removeItem('TawasolToken');
+      // console.log("Expire");
+
+    }else{
+      this.user.next(this.helper.decodeToken(token))
+      this.loadPermissions();
+      // console.log(this.user.getValue());
+    }
   }
 
   loadPermissions(){

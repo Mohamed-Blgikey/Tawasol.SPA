@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiResponse } from 'src/app/core/Models/api-response';
+import { User } from 'src/app/core/Models/user';
 
 @Component({
   selector: 'app-profile',
@@ -7,8 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  User:any;
-
+  User!:User;
   constructor(private active:ActivatedRoute) { }
 
 //   @HostListener('window:scroll', ['$event']) onScrollEvent($event:any) {
@@ -20,9 +21,9 @@ export class ProfileComponent implements OnInit {
 // }
 
   ngOnInit(): void {
-    this.active.data.subscribe(res=>{
-      // console.log(res['user']);
-      this.User = res['user']
+    this.active.data.subscribe((res)=>{
+      this.User = res['user'].data
+      // console.log(this.User);
     })
   }
 

@@ -2,7 +2,7 @@
 <div style="height: 85vh; background-color: #2b2d2e;"  >
   <!-- cover -->
   <div style="height: 65%;">
-    <div  class="w-75 h-100 m-auto d-flex align-items-sm-end align-items-start justify-content-end p-sm-3 p-1" style="background-image: url(https://static.vecteezy.com/system/resources/thumbnails/002/380/002/small/diagonal-abstract-banner-with-blue-and-purple-template-free-vector.jpg); background-position: center; background-size: 100% 100%;">
+    <div  class="w-75 h-100 m-auto d-flex align-items-sm-end align-items-start justify-content-end p-sm-3 p-1" [ngStyle]="{'background-image':' url(' + User.photoUrl + ')'}" style="background-position: center; background-size: 100% 100%;">
       <button mat-flat-button style="border: 1px solid white; ;background-color: gray; color: white;">Edit Cover</button>
     </div>
   </div>

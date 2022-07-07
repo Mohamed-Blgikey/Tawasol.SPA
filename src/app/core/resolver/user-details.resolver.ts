@@ -6,6 +6,8 @@ import {
 } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { UserApi } from '../APIS/User';
+import { ApiResponse } from '../Models/api-response';
+import { User } from '../Models/user';
 import { HttpService } from '../services/http.service';
 
 @Injectable({
@@ -24,6 +26,5 @@ export class UserDetailsResolver implements Resolve<boolean> {
         return of(err)
       })
     )
-    return of(true);
   }
 }
