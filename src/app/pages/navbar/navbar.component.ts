@@ -16,12 +16,23 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.PhotoUrl = this.auth.user['_value'].photoUrl;
     this.CurrentUserId = this.auth.user['_value'].nameid;
+    this.auth.newPhoto.subscribe(()=>{
+      if (this.auth.newPhoto['_value'] != '') {
+        this.PhotoUrl = this.auth.newPhoto['_value']
+      }else{
+        if (localStorage.getItem('newPhoto') != null) {
+          let x:any = localStorage.getItem('newPhoto');
+          this.PhotoUrl = x;
+        }
+      }
+    })
     // console.log(this.CurrentUserId);
 
   }
 
   logOut(){
     localStorage.removeItem('TawasolToken');
+    localStorage.removeItem('newPhoto')
     this.auth.user.next(null)
     this.router.navigate(['/login'])
   }

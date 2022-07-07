@@ -1,0 +1,29 @@
+ <div style="overflow-y: auto;overflow-x: hidden; max-height: 400px;">
+  <form [formGroup]="createPhotoValid">
+    <form class="example-form">
+      <div class="row">
+        <div class="col-12">
+          <input class="form-control" (change)="GetPhoto($event)" type="file">
+        </div>
+        <div class="col-12 mt-2">
+          <button (click)="Done()" type="button" [disabled]="createPhotoValid.invalid" mat-flat-button color="primary">Add</button>
+        </div>
+      </div>
+    </form>
+  </form>
+
+ <div class="pt-5">
+  <h1>My Photo</h1>
+  <div class="row">
+    <div *ngFor="let photo of MyPhoto" class="col-6 col-sm-2 mt-4">
+      <div>
+        <img class="w-100 rounded" [src]="photo.url" alt="">
+        <div>
+            <button class="btn btn-success"><i class="fa-solid fa-user-check"></i></button>
+            <button class="ms-1 btn btn-danger text-white"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+ </div>

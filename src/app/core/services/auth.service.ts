@@ -20,6 +20,7 @@ export class AuthService {
   // const expirationDate = helper.getTokenExpirationDate(myRawToken);
   // const isExpired = helper.isTokenExpired(myRawToken);
   user = new BehaviorSubject(null);
+  newPhoto = new BehaviorSubject('');
 
   baseUrl = environment.baseUrl;
   constructor(private http:HttpClient,private permissionsService:NgxPermissionsService) {
