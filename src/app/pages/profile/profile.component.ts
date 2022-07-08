@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from 'src/app/core/Models/api-response';
-import { ProfileImage } from 'src/app/core/Models/profile-image';
+import { Image } from 'src/app/core/Models/profile-image';
 import { User } from 'src/app/core/Models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { EditCoverComponent } from './edit-cover/edit-cover.component';
 import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 
 @Component({
@@ -15,13 +16,16 @@ import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 })
 export class ProfileComponent implements OnInit ,OnDestroy{
   User!:User;
-  UserImage!:ProfileImage[];
+  UserImage!:Image[];
+  UserCover!:Image[];
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
+  sub3:Subscription|undefined;
   constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService) { }
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
     this.sub2?.unsubscribe();
+    this.sub3?.unsubscribe();
   }
 
 //   @HostListener('window:scroll', ['$event']) onScrollEvent($event:any) {
@@ -36,7 +40,8 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     this.sub1 = this.active.data.subscribe((res)=>{
       this.User = res['user'].data
       this.UserImage = this.User.profilePhotos.reverse();
-      // console.log(this.UserImage);
+      this.UserCover = this.User.coverPhotos.reverse();
+      // console.log(this.User);
     })
 
 
@@ -45,14 +50,25 @@ export class ProfileComponent implements OnInit ,OnDestroy{
         this.User.photoUrl = this.auth.newPhoto['_value']
       }
     })
+
+    this.sub3 = this.auth.newCover.subscribe(()=>{
+      if (this.auth.newCover['_value'] != '') {
+        this.User.coverUrl = this.auth.newCover['_value']
+      }
+    })
   }
 
 
-  openDialog() {
+  openDialogImage() {
     this.dialog.open(EditPhotoComponent,{
       data : this.UserImage
     });
   }
 
+  openDialogCover(){
+    this.dialog.open(EditCoverComponent,{
+      data:this.UserCover
+    })
+  }
 
 }

@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subscription } from 'rxjs';
@@ -9,11 +9,11 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 
 @Component({
-  selector: 'app-edit-photo',
-  templateUrl: './edit-photo.component.html',
-  styleUrls: ['./edit-photo.component.scss']
+  selector: 'app-edit-cover',
+  templateUrl: './edit-cover.component.html',
+  styleUrls: ['./edit-cover.component.scss']
 })
-export class EditPhotoComponent implements OnInit ,OnDestroy{
+export class EditCoverComponent implements OnInit,OnDestroy {
 
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
@@ -26,7 +26,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     f:new FormControl('',[Validators.required])
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Image[],private fb:FormBuilder,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Image[],private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
 
   ngOnInit(): void {
     this.MyPhoto = this.data;
@@ -39,7 +39,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     this.sub4?.unsubscribe();
   }
 
-  GetProfilePhoto(e:any){
+  GetCoverPhoto(e:any){
     // console.log(e.target.files[0]);
     this.createPhoto.delete("File");
     this.createPhoto.delete("UserId");
@@ -48,7 +48,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     let file = e.target.files[0];
     this.createPhoto.append('File', file, file.name);
     this.createPhoto.append('UserId',this.auth.user['_value'].nameid);
-    this.createPhoto.append('Type','p');
+    this.createPhoto.append('Type','c');
 
     this.createPhotoValid.controls['f'].setValue('sd');
     const reader = new FileReader();
@@ -60,7 +60,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
       }
   }
 
-  UploadProfilePhoto(){
+  UploadCover(){
     this.alert.loading("Editing in ...",{duration:10000000000000,id:"CloseLoading"});
     // console.log(this.createPhoto);
     this.sub1 = this.http.Post(UserApi.UploadImage,this.createPhoto).subscribe(res=>{
@@ -70,8 +70,8 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
         this.alert.success("Image changed ^_^ ")
         // console.log(res.data);
         this.MyPhoto.unshift(res.data)
-        localStorage.setItem('newPhoto',this.MyPhoto[0].url)
-        this.auth.newPhoto.next(this.MyPhoto[0].url);
+        localStorage.setItem('newCover',this.MyPhoto[0].url)
+        this.auth.newCover.next(this.MyPhoto[0].url);
         this.createPhotoValid.reset();
         this.createPhoto.delete("File");
         this.createPhoto.delete("UserId");
@@ -84,7 +84,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     })
   }
 
-  SetMainProfilePhoto(photo:Image){
+  SetMainCoverPhoto(photo:Image){
     this.alert.loading("Editing in ...",{duration:10000000000000,id:"CloseLoading"});
     let old:any = this.MyPhoto.find(i=>i.isMain == true);
     old.isMain = false;
@@ -92,30 +92,28 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     let updateRange:Image[] = [] ;   updateRange.push(old);  updateRange.push(photo);
 
     // console.log(updateRange);
-    this.sub2 = this.http.Post(`${UserApi.SetMainProfile}/profile`,updateRange).subscribe(res=>{
+    this.sub2 = this.http.Post(`${UserApi.SetMainProfile}/cover`,updateRange).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
         this.alert.success("Image changed ^_^ ")
-        localStorage.setItem('newPhoto',photo.url)
+        localStorage.setItem('newCover',photo.url)
       }else{
         this.alert.error(res.message+' ' + res.code);
         old.isMain = true;
         photo.isMain = false;
       }
-      this.auth.newPhoto.next(photo.url);
+      this.auth.newCover.next(photo.url);
     })
     // console.log(photo);
 
 
   }
 
-  DeleteProfilePhoto(photo:Image){
+  DeleteCoverPhoto(photo:Image){
     this.alert.loading("Deleteing in ...",{duration:10000000000000,id:"CloseLoading"});
 
     // console.log(photo);
-    this.sub3 = this.http.Post(`${UserApi.DeleteImage}/profile`,photo).subscribe(res=>{
-      console.log(res);
-
+    this.sub3 = this.http.Post(`${UserApi.DeleteImage}/cover`,photo).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == "success") {
         this.alert.success("Image Deleted ^_^ ")
@@ -126,18 +124,18 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
             let newPhoto = this.MyPhoto[0];
             // console.log(newPhoto);
             let photos:Image[] = []; photos.push(newPhoto);
-            this.sub4 = this.http.Post(`${UserApi.SetMainProfile}/profile`,photos).subscribe(res=>{
+            this.sub4 = this.http.Post(`${UserApi.SetMainProfile}/cover`,photos).subscribe(res=>{
               if (res.message == 'success') {
-                localStorage.setItem('newPhoto',photos[0].url)
+                localStorage.setItem('newCover',photos[0].url)
               }else{
                 this.alert.error(res.message+' ' + res.code);
               }
             })
-            this.auth.newPhoto.next(this.MyPhoto[0].url);
+            this.auth.newCover.next(this.MyPhoto[0].url);
           }else{
             let defualt:string = "https://res.cloudinary.com/dz0g6ou0i/image/upload/v1654960873/defualt_w4v99c.png";
-            this.auth.newPhoto.next(defualt);
-            localStorage.setItem('newPhoto',defualt)
+            this.auth.newCover.next(defualt);
+            localStorage.setItem('newCover',defualt)
 
           }
           // console.log(y[0]);
@@ -145,5 +143,4 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
       }
     })
   }
-
 }

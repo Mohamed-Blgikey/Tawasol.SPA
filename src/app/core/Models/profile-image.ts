@@ -1,4 +1,4 @@
-export interface ProfileImage {
+export interface Image {
   id :number;
   url:string;
   publicId:string;

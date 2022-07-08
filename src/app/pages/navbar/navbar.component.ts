@@ -26,13 +26,16 @@ export class NavbarComponent implements OnInit {
         }
       }
     })
+
+
     // console.log(this.CurrentUserId);
 
   }
 
   logOut(){
     localStorage.removeItem('TawasolToken');
-    localStorage.removeItem('newPhoto')
+    localStorage.removeItem('newPhoto');
+    localStorage.removeItem('newCover');
     this.auth.user.next(null)
     this.router.navigate(['/login'])
   }

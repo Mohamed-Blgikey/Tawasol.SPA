@@ -1,27 +1,27 @@
- <div style="overflow-y: auto;overflow-x: hidden; max-height: 400px;">
+<div style="overflow-y: auto;overflow-x: hidden; max-height: 400px;">
   <form [formGroup]="createPhotoValid">
     <form class="example-form">
       <div class="row">
         <div class="col-12 text-center">
-          <input class="form-control" (change)="GetProfilePhoto($event)" type="file">
+          <input class="form-control" (change)="GetCoverPhoto($event)" type="file">
           <img [src]="imageSrc" *ngIf="imageSrc" style="height: 150px; width:150px" class="rounded my-2">
         </div>
         <div class="col-12 mt-2">
-          <button (click)="UploadProfilePhoto()" type="button" [disabled]="createPhotoValid.invalid" mat-flat-button color="primary">Add</button>
+          <button (click)="UploadCover()" type="button" [disabled]="createPhotoValid.invalid" mat-flat-button color="primary">Add</button>
         </div>
       </div>
     </form>
   </form>
 
  <div class="pt-5">
-  <h1>My Photos</h1>
+  <h1>My Covers</h1>
   <div class="row">
     <div *ngFor="let photo of MyPhoto" [ngClass]="MyPhoto.length < 1?'col-md-2':'col-md-3'" class="col-6  mt-1">
       <div>
         <img class="w-100 rounded" [src]="photo.url" alt="">
         <div class="mt-2">
-            <button (click)="SetMainProfilePhoto(photo)" [disabled]="photo.isMain" class="btn btn-success"><i class="fa-solid fa-user-check"></i></button>
-            <button (click)="DeleteProfilePhoto(photo)"  class="ms-1 btn btn-danger text-white"><i class="fa-solid fa-trash-can"></i></button>
+            <button (click)="SetMainCoverPhoto(photo)" [disabled]="photo.isMain" class="btn btn-success"><i class="fa-solid fa-user-check"></i></button>
+            <button (click)="DeleteCoverPhoto(photo)"  class="ms-1 btn btn-danger text-white"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </div>
     </div>
