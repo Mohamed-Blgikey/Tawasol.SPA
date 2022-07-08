@@ -15,49 +15,130 @@ import { HttpService } from 'src/app/core/services/http.service';
 })
 export class EditPhotoComponent implements OnInit ,OnDestroy{
 
-  sub1!:Subscription;
+  sub1:Subscription|undefined;
+  sub2:Subscription|undefined;
+  sub3:Subscription|undefined;
+  sub4:Subscription|undefined;
   MyPhoto!:ProfileImage [];
+  imageSrc!:string;
   createPhoto:FormData = new FormData();
   createPhotoValid:FormGroup = new FormGroup({
     f:new FormControl('',[Validators.required])
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProfileImage[],private fb:FormBuilder,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
-  ngOnDestroy(): void {
-    this.sub1.unsubscribe();
+
+  ngOnInit(): void {
+    this.MyPhoto = this.data;
   }
 
-  GetPhoto(e:any){
+  ngOnDestroy(): void {
+    this.sub1?.unsubscribe();
+    this.sub2?.unsubscribe();
+    this.sub3?.unsubscribe();
+    this.sub4?.unsubscribe();
+  }
+
+  GetProfilePhoto(e:any){
     // console.log(e.target.files[0]);
+    this.createPhoto.delete("File");
+    this.createPhoto.delete("UserId");
+    this.createPhoto.delete("Type");
+
     let file = e.target.files[0];
     this.createPhoto.append('File', file, file.name);
     this.createPhoto.append('UserId',this.auth.user['_value'].nameid);
     this.createPhoto.append('Type','p');
 
     this.createPhotoValid.controls['f'].setValue('sd');
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+      reader.onload = () => {
+
+        this.imageSrc = reader.result as string;
+      }
   }
 
-  Done(){
+  UploadProfilePhoto(){
     this.alert.loading("Editing in ...",{duration:10000000000000,id:"CloseLoading"});
-    console.log(this.createPhoto);
+    // console.log(this.createPhoto);
     this.sub1 = this.http.Post(UserApi.UploadImage,this.createPhoto).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
+        this.MyPhoto.forEach(e=>{e.isMain = false})
         this.alert.success("Image changed ^_^ ")
-        console.log(res.data);
+        // console.log(res.data);
         this.MyPhoto.unshift(res.data)
         localStorage.setItem('newPhoto',this.MyPhoto[0].url)
         this.auth.newPhoto.next(this.MyPhoto[0].url);
+        this.createPhotoValid.reset();
+        this.createPhoto.delete("File");
+        this.createPhoto.delete("UserId");
+        this.createPhoto.delete("Type");
+        this.imageSrc = '';
 
       }else{
         this.alert.error(res.message)
       }
     })
-    this.createPhotoValid.reset();
   }
 
-  ngOnInit(): void {
-    this.MyPhoto = this.data.reverse();
+  SetMainProfilePhoto(photo:ProfileImage){
+    this.alert.loading("Editing in ...",{duration:10000000000000,id:"CloseLoading"});
+    let old:any = this.MyPhoto.find(i=>i.isMain == true);
+    old.isMain = false;
+    photo.isMain = true;
+    let updateRange:ProfileImage[] = [] ;   updateRange.push(old);  updateRange.push(photo);
+
+    // console.log(updateRange);
+    this.sub2 = this.http.Post(UserApi.SetMainProfile,updateRange).subscribe(res=>{
+      this.alert.close("CloseLoading");
+      if (res.message == 'success') {
+        this.alert.success("Image changed ^_^ ")
+        localStorage.setItem('newPhoto',photo.url)
+      }else{
+        this.alert.error(res.message+' ' + res.code);
+        old.isMain = true;
+        photo.isMain = false;
+      }
+      this.auth.newPhoto.next(photo.url);
+    })
+    // console.log(photo);
+
+
+  }
+
+  DeleteProfilePhoto(photo:ProfileImage){
+    this.alert.loading("Deleteing in ...",{duration:10000000000000,id:"CloseLoading"});
+
+    // console.log(photo);
+    this.sub3 = this.http.Post(UserApi.DeleteProfileImage,photo).subscribe(res=>{
+      this.alert.close("CloseLoading");
+      if (res.message == "success") {
+        this.alert.success("Image Deleted ^_^ ")
+        let indexPhotoDelete = this.MyPhoto.findIndex(s=>s.id == photo.id);  this.MyPhoto.splice(indexPhotoDelete,1);
+        if (photo.isMain) {
+          if (this.MyPhoto.length>0) {
+            this.MyPhoto[0].isMain = true;
+            let newPhoto = this.MyPhoto[0];
+            // console.log(newPhoto);
+            let photos:ProfileImage[] = []; photos.push(newPhoto);
+            this.sub4 = this.http.Post(UserApi.SetMainProfile,photos).subscribe(res=>{
+              if (res.message == 'success') {
+                localStorage.setItem('newPhoto',photos[0].url)
+              }else{
+                this.alert.error(res.message+' ' + res.code);
+              }
+            })
+            this.auth.newPhoto.next(this.MyPhoto[0].url);
+          }else{
+            this.auth.newPhoto.next("https://res.cloudinary.com/dz0g6ou0i/image/upload/v1654960873/defualt_w4v99c.png");
+          }
+          // console.log(y[0]);
+        }
+      }
+    })
   }
 
 }

@@ -3,5 +3,9 @@ export const UserApi = {
 
 
   UploadImage:"Photos/UploadImage",
+  SetMainProfile:"Photos/SetMainProfile",
+
+
+  DeleteProfileImage:"Photos/DeleteProfileImage"
 
 }
