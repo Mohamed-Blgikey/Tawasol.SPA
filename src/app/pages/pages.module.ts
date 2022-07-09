@@ -7,6 +7,7 @@ import { PagesComponent } from './pages.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from '../shared/material.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     CommonModule,
     PagesRoutingModule,
     MaterialModule,
-    NgxPermissionsModule.forChild()
+    NgxPermissionsModule.forChild(),
+    SharedModule
   ]
 })
 export class PagesModule { }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -8,13 +8,15 @@ import { User } from 'src/app/core/Models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EditCoverComponent } from './edit-cover/edit-cover.component';
 import { EditPhotoComponent } from './edit-photo/edit-photo.component';
+import { ShowImageComponent } from './show-image/show-image.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit ,OnDestroy{
+export class ProfileComponent implements OnInit,AfterViewChecked ,OnDestroy{
+  isLoading = true;
   User!:User;
   UserImage!:Image[];
   UserCover!:Image[];
@@ -22,6 +24,9 @@ export class ProfileComponent implements OnInit ,OnDestroy{
   sub2:Subscription|undefined;
   sub3:Subscription|undefined;
   constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService) { }
+  ngAfterViewChecked(): void {
+    this.isLoading = false
+  }
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
     this.sub2?.unsubscribe();
@@ -68,6 +73,13 @@ export class ProfileComponent implements OnInit ,OnDestroy{
   openDialogCover(){
     this.dialog.open(EditCoverComponent,{
       data:this.UserCover
+    })
+  }
+
+  openDialogShow(obj:Image[]){
+    this.dialog.open(ShowImageComponent,{
+      data:obj,
+      width : '400px'
     })
   }
 

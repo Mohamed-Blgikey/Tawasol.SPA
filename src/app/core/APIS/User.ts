@@ -3,7 +3,7 @@ export const UserApi = {
 
 
   UploadImage:"Photos/UploadImage",
-  SetMainProfile:"Photos/SetMainProfile",
+  SetMain:"Photos/SetMain",
 
 
   DeleteImage:"Photos/DeleteImage"

@@ -8,6 +8,7 @@ import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { EditCoverComponent } from './edit-cover/edit-cover.component';
+import { ShowImageComponent } from './show-image/show-image.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { EditCoverComponent } from './edit-cover/edit-cover.component';
     ProfileComponent,
     EditPhotoComponent,
     EditCoverComponent,
+    ShowImageComponent,
   ],
   imports: [
     CommonModule,

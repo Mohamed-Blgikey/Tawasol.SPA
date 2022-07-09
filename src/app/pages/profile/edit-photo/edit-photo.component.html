@@ -1,4 +1,4 @@
- <div style="overflow-y: auto;overflow-x: hidden; max-height: 400px;">
+ <div style="overflow-y: auto;overflow-x: hidden; max-height: 400px; background-color: transparent;">
   <form [formGroup]="createPhotoValid">
     <form class="example-form">
       <div class="row">
@@ -15,6 +15,9 @@
 
  <div class="pt-5">
   <h1>My Photos</h1>
+  <div class="alert alert-danger" *ngIf="MyPhoto.length <= 0">
+    There where no photo yet
+  </div>
   <div class="row">
     <div *ngFor="let photo of MyPhoto" [ngClass]="MyPhoto.length < 1?'col-md-2':'col-md-3'" class="col-6  mt-1">
       <div>

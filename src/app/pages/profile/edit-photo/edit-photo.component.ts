@@ -61,6 +61,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
   }
 
   UploadProfilePhoto(){
+    this.createPhotoValid.reset();
     this.alert.loading("Editing in ...",{duration:10000000000000,id:"CloseLoading"});
     // console.log(this.createPhoto);
     this.sub1 = this.http.Post(UserApi.UploadImage,this.createPhoto).subscribe(res=>{
@@ -72,7 +73,6 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
         this.MyPhoto.unshift(res.data)
         localStorage.setItem('newPhoto',this.MyPhoto[0].url)
         this.auth.newPhoto.next(this.MyPhoto[0].url);
-        this.createPhotoValid.reset();
         this.createPhoto.delete("File");
         this.createPhoto.delete("UserId");
         this.createPhoto.delete("Type");
@@ -92,7 +92,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     let updateRange:Image[] = [] ;   updateRange.push(old);  updateRange.push(photo);
 
     // console.log(updateRange);
-    this.sub2 = this.http.Post(`${UserApi.SetMainProfile}/profile`,updateRange).subscribe(res=>{
+    this.sub2 = this.http.Post(`${UserApi.SetMain}/profile`,updateRange).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
         this.alert.success("Image changed ^_^ ")
@@ -114,7 +114,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
 
     // console.log(photo);
     this.sub3 = this.http.Post(`${UserApi.DeleteImage}/profile`,photo).subscribe(res=>{
-      console.log(res);
+      // console.log(res);
 
       this.alert.close("CloseLoading");
       if (res.message == "success") {
@@ -126,7 +126,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
             let newPhoto = this.MyPhoto[0];
             // console.log(newPhoto);
             let photos:Image[] = []; photos.push(newPhoto);
-            this.sub4 = this.http.Post(`${UserApi.SetMainProfile}/profile`,photos).subscribe(res=>{
+            this.sub4 = this.http.Post(`${UserApi.SetMain}/profile`,photos).subscribe(res=>{
               if (res.message == 'success') {
                 localStorage.setItem('newPhoto',photos[0].url)
               }else{

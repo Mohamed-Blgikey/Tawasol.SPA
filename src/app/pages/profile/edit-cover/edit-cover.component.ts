@@ -61,6 +61,7 @@ export class EditCoverComponent implements OnInit,OnDestroy {
   }
 
   UploadCover(){
+    this.createPhotoValid.reset();
     this.alert.loading("Editing in ...",{duration:10000000000000,id:"CloseLoading"});
     // console.log(this.createPhoto);
     this.sub1 = this.http.Post(UserApi.UploadImage,this.createPhoto).subscribe(res=>{
@@ -72,7 +73,6 @@ export class EditCoverComponent implements OnInit,OnDestroy {
         this.MyPhoto.unshift(res.data)
         localStorage.setItem('newCover',this.MyPhoto[0].url)
         this.auth.newCover.next(this.MyPhoto[0].url);
-        this.createPhotoValid.reset();
         this.createPhoto.delete("File");
         this.createPhoto.delete("UserId");
         this.createPhoto.delete("Type");
@@ -92,7 +92,7 @@ export class EditCoverComponent implements OnInit,OnDestroy {
     let updateRange:Image[] = [] ;   updateRange.push(old);  updateRange.push(photo);
 
     // console.log(updateRange);
-    this.sub2 = this.http.Post(`${UserApi.SetMainProfile}/cover`,updateRange).subscribe(res=>{
+    this.sub2 = this.http.Post(`${UserApi.SetMain}/cover`,updateRange).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
         this.alert.success("Image changed ^_^ ")
@@ -124,7 +124,7 @@ export class EditCoverComponent implements OnInit,OnDestroy {
             let newPhoto = this.MyPhoto[0];
             // console.log(newPhoto);
             let photos:Image[] = []; photos.push(newPhoto);
-            this.sub4 = this.http.Post(`${UserApi.SetMainProfile}/cover`,photos).subscribe(res=>{
+            this.sub4 = this.http.Post(`${UserApi.SetMain}/cover`,photos).subscribe(res=>{
               if (res.message == 'success') {
                 localStorage.setItem('newCover',photos[0].url)
               }else{

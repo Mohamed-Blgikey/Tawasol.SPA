@@ -75,7 +75,7 @@
 
                   <mat-radio-group formControlName="gender" aria-label="Select an option">
                     <mat-radio-button value=true>Male</mat-radio-button>
-                    <mat-radio-button class="ms-3" value=false>Femail</mat-radio-button>
+                    <mat-radio-button class="ms-3" value=false>Female</mat-radio-button>
                     <mat-error *ngIf="SignupFrom.get('gender')?.hasError('required') && SignupFrom.get('gender')?.touched">Gender is required</mat-error>
 
                   </mat-radio-group>
