@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { ShowImageComponent } from './show-image/show-image.component';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit,AfterViewChecked ,OnDestroy{
+export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
   isLoading = true;
   User!:User;
   UserImage!:Image[];
@@ -24,9 +24,10 @@ export class ProfileComponent implements OnInit,AfterViewChecked ,OnDestroy{
   sub2:Subscription|undefined;
   sub3:Subscription|undefined;
   constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService) { }
-  ngAfterViewChecked(): void {
+  ngAfterContentInit(): void {
     this.isLoading = false
   }
+
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
     this.sub2?.unsubscribe();

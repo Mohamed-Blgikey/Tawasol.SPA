@@ -65,7 +65,7 @@ export class SignupComponent implements OnInit {
   private CreateForm(){
     this.SignupFrom = this.fb.group({
       email:['',{
-        validators: [Validators.required, Validators.email],
+        validators: [Validators.required, Validators.email,Validators.pattern('^[A-Za-z0-9._%+-]{1,}(@gmail.com|@GMAIL.COM)$')],
         asyncValidators: [this.auth.uniqueEmailValidator()],
         updateOn:'blur'
       }],

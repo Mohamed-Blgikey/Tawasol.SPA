@@ -15,11 +15,13 @@
 <div style="height: 85vh; background-color: #2b2d2e;"  >
   <!-- cover -->
   <div style="height: 65%; position: relative;">
-    <div (click)="openDialogShow(User.coverPhotos)" class="h-100 m-auto p-sm-3 p-1" [ngStyle]="{'background-image':' url(' + User.coverUrl + ')'}" style="background-repeat: no-repeat ; background-size: auto 100% ; background-position: center; width: 80%; background-color: white; cursor: pointer;">
+    <div (click)="openDialogShow(User.coverPhotos)" class="h-100 m-auto p-sm-3 p-1" [ngStyle]="{'background-image':' url(' + User.coverUrl + ')'}" style="background-repeat: no-repeat ; background-size: auto 100% ; background-position: center; width: 80%; background-color: rgb(90, 90, 90); cursor: pointer;">
     </div>
     <div style="position: absolute; top: 10px; right: 0;width: 100%;">
       <div style="width: 80% ;" class="m-auto  p-sm-3 p-1">
-        <button (click)="openDialogCover()" style="padding: 10px 10px;border-radius: 50%;background-color: gray; color: white;"><i style="font-size: 20px" class="fa-solid fa-circle-plus"></i></button>
+        <button  (click)="openDialogCover()" class="position-absolute d-flex justify-content-center align-items-center" style="font-size: 20px; border-radius: 50%;background-color: gray; color: white;" mat-fab  aria-label="Example icon button with a delete icon">
+          <i class="fa-solid fa-camera"></i>
+        </button>
       </div>
     </div>
   </div>

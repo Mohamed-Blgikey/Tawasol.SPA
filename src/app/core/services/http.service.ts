@@ -13,19 +13,15 @@ export class HttpService {
   constructor(private http:HttpClient) { }
 
   Get(EndPoint:string):Observable<ApiResponse>{
-    let token = localStorage.getItem('TawasolToken');
-    let header = {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-    };
-    return this.http.get<ApiResponse>(this.FullPath(EndPoint),header)
+    return this.http.get<ApiResponse>(this.FullPath(EndPoint))
   }
 
   Post(EndPoint:string,obj:any = null):Observable<ApiResponse>{
-    let token = localStorage.getItem('TawasolToken');
-    let header = {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-    };
-    return this.http.post<ApiResponse>(this.FullPath(EndPoint),obj,header)
+    return this.http.post<ApiResponse>(this.FullPath(EndPoint),obj)
+  }
+
+  Delete(EndPoint:string,obj:any = null):Observable<any>{
+    return this.http.delete(this.FullPath(EndPoint),obj)
   }
 
   private FullPath(EndPoint:string):string{

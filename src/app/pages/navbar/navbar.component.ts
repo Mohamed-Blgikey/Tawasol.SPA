@@ -33,11 +33,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut(){
-    localStorage.removeItem('TawasolToken');
-    localStorage.removeItem('newPhoto');
-    localStorage.removeItem('newCover');
-    this.auth.user.next(null)
-    this.router.navigate(['/login'])
+    this.auth.logout();
   }
 
 }

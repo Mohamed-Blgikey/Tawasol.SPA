@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HotToastService } from '@ngneat/hot-toast';
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -24,7 +25,7 @@ export class AuthService {
   newCover = new BehaviorSubject('');
 
   baseUrl = environment.baseUrl;
-  constructor(private http:HttpClient,private permissionsService:NgxPermissionsService) {
+  constructor(private http:HttpClient,private permissionsService:NgxPermissionsService,private router:Router) {
     if (localStorage.getItem('TawasolToken') != null) {
       this.SaveUserData();
     }
@@ -87,6 +88,14 @@ export class AuthService {
       this.permissionsService.loadPermissions(role.map(x=>x))
     }
 
+  }
+
+  logout(){
+    localStorage.removeItem('TawasolToken');
+    localStorage.removeItem('newPhoto');
+    localStorage.removeItem('newCover');
+    this.user.next(null)
+    this.router.navigate(['/login'])
   }
 
 }

@@ -26,28 +26,29 @@ export class ShowImageComponent implements OnInit {
     mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
-    dots: false,
-    navSpeed: 700,
+    dots: true,
+    navSpeed: 500,
     navText: ['', ''],
     responsive: {
       0: {
-        items: 3
+        items: 4
       },
       400: {
-        items: 3
+        items: 4
       },
       740: {
-        items: 3
+        items: 4
       },
       940: {
-        items: 3
+        items: 4
       }
     },
+    margin:4,
     nav: true,
     autoplay:true,
-    autoplayTimeout:2000,
-    autoWidth:true,
-    autoplayHoverPause:true
+    autoplayTimeout:1500,
+    autoplayHoverPause:true,
+    smartSpeed:1000
   }
 
 }

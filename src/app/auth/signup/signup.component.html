@@ -34,9 +34,9 @@
                 <mat-form-field class="w-100" appearance="fill">
                   <mat-label>Email</mat-label>
                   <input formControlName="email" matInput placeholder="*Ex/ abc@abc.abc">
-                  <mat-icon matSuffix><i class="fa-solid fa-envelope"></i></mat-icon>
+                  <mat-icon matSuffix><i class="fa-brands fa-google"></i></mat-icon>
                   <mat-error *ngIf="SignupFrom.get('email')?.hasError('required')">Email is required</mat-error>
-                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('email')">Email inValid</mat-error>
+                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('pattern')">Please enter your gmail</mat-error>
                   <mat-error *ngIf="SignupFrom.get('email')?.hasError('emailExists')">
                     This email address is already registered. Please use another one.
                   </mat-error>
