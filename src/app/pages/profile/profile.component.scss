@@ -1,0 +1,35 @@
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 14px;
+  }
+  p{
+    font-size: 10px;
+  }
+  button{
+    font-size: 10px;
+  }
+
+  .profileImage{
+    top: -140px !important;
+  }
+  .EditProfileImage{
+    bottom: -40px !important;
+  }
+}
+
+.nav-item,.nav-link{
+  color: rgb(152, 152, 152) !important;
+  cursor: pointer;
+  border: 0px !important;
+  padding-top: 10px;
+}
+.nav-item,.nav-link:hover{
+  color: white !important;
+
+}
+.active{
+  background-color: transparent !important;
+  border: 0px !important;
+  border-bottom: 4px solid #673AB7 !important;
+  color: white !important;
+}

@@ -1,0 +1,41 @@
+
+<div class=" w-sm-75">
+  <div class="row">
+    <div class="col-sm-4 p-2">
+
+      <div  class="p-3 rounded" style="background-color: #2b2d2e;">
+        <h2>Brief about me</h2>
+        <p><i class="fa-solid fa-briefcase pe-3"></i> work at: dasdasdsad</p>
+        <p><i class="fa-solid fa-briefcase pe-3"></i> work at: aaaaaaaa</p>
+        <p><i class="fa-solid fa-graduation-cap pe-3"></i>Graduated from: FCAI</p>
+        <p><i class="fa-solid fa-location-pin pe-3 ps-1"></i>Egypt</p>
+        <p><i class="fa-solid fa-house-chimney-window pe-3"></i>Beni Suef</p>
+        <p><i class="fa-brands fa-instagram pe-3"></i><a href="asd">{{User.fullName}}</a></p>
+        <p><i class="fa-brands fa-whatsapp pe-3"></i>01124276092</p>
+        <p><i class="fa-solid fa-heart pe-3"></i> Single</p>
+      </div>
+    </div>
+    <div class="col-sm-8 p-2" >
+      <div class="p-3 rounded"  style="background-color: #2b2d2e;">
+        <div class="d-flex">
+          <img style="width: 40px; height: 40px; border-radius: 50%;" [src]="User?.photoUrl" alt="">
+          <input #caption class="form-control ms-1 bg-dark text-white border-0 rounded-pill" type="text" placeholder="What do you think ...">
+        </div>
+        <div *ngIf="postImagePreview" style="text-align: center;" class="mt-3">
+          <img class="w-100" [src]="postImagePreview" alt="">
+        </div>
+        <hr>
+        <div class="mt-3 pb-0 mb-0 d-flex" style="justify-content: space-between;">
+          <button mat-icon-button (click)="f.click() "><i class="fa-solid fa-images" style="font-size: 20px;"></i></button>
+          <button mat-flat-button color="primary" [disabled]="postImagePreview == ''">Share</button>
+        </div>
+        <input #f type="file" accept="image/*" hidden (change)="UploadPost($event)">
+      </div>
+      <div class="p-3 mt-3 rounded"  style="background-color: #2b2d2e;">
+        dsdad
+      </div>
+    </div>
+
+
+  </div>
+</div>

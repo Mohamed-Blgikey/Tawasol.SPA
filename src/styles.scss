@@ -1,9 +1,10 @@
+$mainColor : #673AB7;
 
 /* You can add global styles to this file, and also import other style files */
 /* width */
 /* width */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 10px;
 }
 
 /* Track */
@@ -20,7 +21,6 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-$mainColor : #673AB7;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-color: #18191A; color: white; }

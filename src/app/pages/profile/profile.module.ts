@@ -9,6 +9,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { EditCoverComponent } from './edit-cover/edit-cover.component';
 import { ShowImageComponent } from './show-image/show-image.component';
+import { MyPostsComponent } from './my-posts/my-posts.component';
+import { MyFriendComponent } from './my-friend/my-friend.component';
+import { MyPhotosComponent } from './my-photos/my-photos.component';
 
 
 @NgModule({
@@ -17,6 +20,9 @@ import { ShowImageComponent } from './show-image/show-image.component';
     EditPhotoComponent,
     EditCoverComponent,
     ShowImageComponent,
+    MyPostsComponent,
+    MyFriendComponent,
+    MyPhotosComponent,
   ],
   imports: [
     CommonModule,

@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
   sub3:Subscription|undefined;
   constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService) { }
   ngAfterContentInit(): void {
-    this.isLoading = false
+    // this.isLoading = false
   }
 
   ngOnDestroy(): void {
@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
       this.UserImage = this.User.profilePhotos.reverse();
       this.UserCover = this.User.coverPhotos.reverse();
       // console.log(this.User);
+      this.isLoading = false
     })
 
 
