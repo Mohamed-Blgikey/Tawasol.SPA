@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiResponse } from 'src/app/core/Models/api-response';
 import { Image } from 'src/app/core/Models/profile-image';
@@ -16,14 +16,14 @@ import { ShowImageComponent } from './show-image/show-image.component';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
-  isLoading = true;
   User!:User;
+  userId:string = '';
   UserImage!:Image[];
   UserCover!:Image[];
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
   sub3:Subscription|undefined;
-  constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService) { }
+  constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService,private router:Router) { }
   ngAfterContentInit(): void {
     // this.isLoading = false
   }
@@ -43,12 +43,15 @@ export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
 // }
 
   ngOnInit(): void {
+
+
+    this.userId = this.active.snapshot.queryParams['id'];
+
     this.sub1 = this.active.data.subscribe((res)=>{
       this.User = res['user'].data
       this.UserImage = this.User.profilePhotos.reverse();
       this.UserCover = this.User.coverPhotos.reverse();
       // console.log(this.User);
-      this.isLoading = false
     })
 
 

@@ -15,6 +15,15 @@
   .EditProfileImage{
     bottom: -40px !important;
   }
+  .cover{
+    height: 60% !important;
+  }
+  .details{
+    height: 40% !important;
+  }
+  .cover >div{
+    background-size: 100% auto !important;
+  }
 }
 
 .nav-item,.nav-link{
