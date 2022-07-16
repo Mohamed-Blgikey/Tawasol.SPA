@@ -20,6 +20,7 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
   UserCover!:Image[];
   postImagePreview:string [] = [];
   postVedioPreview:string [] = [];
+  Caption:string = '';
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
   constructor(private http:HttpService,private auth:AuthService,private active:ActivatedRoute) { }
@@ -68,6 +69,12 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
         }
       }
     }
+
+  }
+
+  UploadCation(e:any){
+    // console.log(e.target.value);
+    this.Caption = e.target.value;
 
   }
 
