@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.user.value != null) {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/pages'])
     }
     this.CreateForm();
   }

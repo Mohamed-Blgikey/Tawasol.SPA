@@ -1,19 +1,23 @@
 @media only screen and (max-width: 600px) {
   h1 {
-    font-size: 14px;
+    padding-top: 20px;
+    font-size: 10px;
+    font-weight: 900;
   }
   p{
-    font-size: 10px;
+    font-size: 7px;
   }
   button{
-    font-size: 10px;
+    font-size: 7px;
+    width: 20px !important;
+    height: 30px !important;
   }
 
   .profileImage{
-    top: -140px !important;
+    top: -110px !important;
   }
   .EditProfileImage{
-    bottom: -40px !important;
+    bottom: -70px !important;
   }
   .cover{
     height: 60% !important;

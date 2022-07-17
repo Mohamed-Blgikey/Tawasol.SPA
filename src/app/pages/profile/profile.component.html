@@ -4,7 +4,7 @@
   <div class="container h-100">
     <!-- cover -->
     <div class="cover" style="height: 70%; position: relative;">
-      <div (click)="openDialogShow(User.coverPhotos)" class="h-100 w-100 p-sm-3 p-1 rounded" [ngStyle]="{'background-image':' url(' + User.coverUrl + ')'}" style="background-repeat: no-repeat ; background-size: auto 100%  ; background-position: center; background-color: rgb(90, 90, 90); cursor: pointer;">
+      <div (click)="openDialogShow(User.coverPhotos)" class="h-100 w-100 p-sm-3 p-1 rounded" [ngStyle]="{'background-image':' url(' + User.coverUrl + ')'}" style="background-repeat: no-repeat ; background-size: contain ; background-position: center; background-color: rgb(90, 90, 90); cursor: pointer;">
       </div>
       <div style="position: absolute; top: 10px; right: 0;width: 100%;">
         <div style="width: 100% ;" class="p-sm-3 p-1">
@@ -32,14 +32,14 @@
         </div>
 
         <div class="col-sm-6 col-6 mt-5 mt-sm-0 pt-2">
-          <div class="text-center text-sm-start">
-            <h1 >{{User.fullName}}</h1>
+          <div class="text-center text-sm-start mt-4">
+            <h1>{{User.fullName}}</h1>
             <!-- <p class="text-muted">Friends 1200 </p> -->
           </div>
         </div>
 
         <div class="col-sm-3 col-6 mt-5 mt-sm-0 pt-3">
-          <div class="text-center text-sm-end">
+          <div class="text-center text-sm-end mt-3">
             <p >Created at : {{User.createdAt|date}}</p>
             <button style="background-color: #4E4F50; color: white;" class="px-sm-5" mat-flat-button>Edit profile <i class="fa-solid fa-pen ps-3"></i></button>
           </div>
@@ -55,13 +55,13 @@
   <div class="container" >
     <ul class="nav nav-tabs" style="border-top:1px  solid gray ;border-bottom: 0px  solid gray !important ;">
       <li class="nav-item">
-        <a class="nav-link" routerLink="posts" [queryParams]="{id:userId}"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Posts</a>
+        <a class="nav-link" routerLink="posts" [queryParams]="{id:User.id}"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Posts</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="photos" [queryParams]="{id:userId}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Photos</a>
+        <a class="nav-link" routerLink="photos" [queryParams]="{id:User.id}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Photos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="friends" [queryParams]="{id:userId}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Friends</a>
+        <a class="nav-link" routerLink="friends" [queryParams]="{id:User.id}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Friends</a>
       </li>
 
     </ul>

@@ -17,7 +17,6 @@ import { ShowImageComponent } from './show-image/show-image.component';
 })
 export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
   User!:User;
-  userId:string = '';
   UserImage!:Image[];
   UserCover!:Image[];
   sub1:Subscription|undefined;
@@ -45,7 +44,6 @@ export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
   ngOnInit(): void {
 
 
-    this.userId = this.active.snapshot.queryParams['id'];
 
     this.sub1 = this.active.data.subscribe((res)=>{
       this.User = res['user'].data

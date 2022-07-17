@@ -3,8 +3,8 @@
     <form class="example-form">
       <div class="row">
         <div class="col-12 text-center">
-          <input class="form-control" (change)="GetCoverPhoto($event)" type="file">
-          <img [src]="imageSrc" *ngIf="imageSrc" style="height: 150px; width:150px" class="rounded my-2">
+            <input class="form-control" (change)="GetCoverPhoto($event)" type="file">
+            <img [src]="imageSrc" *ngIf="imageSrc"  class="rounded my-2 w-25">
         </div>
         <div class="col-12 mt-2">
           <button (click)="UploadCover()" type="button" [disabled]="createPhotoValid.invalid" mat-flat-button color="primary">Add</button>

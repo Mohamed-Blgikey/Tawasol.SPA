@@ -1,4 +1,4 @@
 export const environment = {
-  baseUrl :"http://www.tawasol.somee.com",
+  baseUrl :"https://localhost:44323",
   production: true
 };

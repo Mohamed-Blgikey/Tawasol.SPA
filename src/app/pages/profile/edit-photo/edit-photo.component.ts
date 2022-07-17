@@ -37,6 +37,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     this.sub2?.unsubscribe();
     this.sub3?.unsubscribe();
     this.sub4?.unsubscribe();
+    this.alert.close("CloseLoading");
   }
 
   GetProfilePhoto(e:any){

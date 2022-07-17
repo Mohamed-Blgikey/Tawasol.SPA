@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.user.value != null) {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/pages'])
     }
     this.CreateForm();
   }
@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
         this.alert.success(`Wellcom ${res.fullName} ^_^`)
         localStorage.setItem('TawasolToken',res.token);
         this.auth.SaveUserData();
-        this.router.navigate(['/home'])
+        this.router.navigate(['/pages'])
         this.alert.close("closeLoading")
         signinFrom.reset();
       }
