@@ -7,6 +7,13 @@ export interface User {
   createdAt:Date;
   photoUrl:string;
   coverUrl:string;
+  city:string;
+  country:string;
+  instagram:string;
+  whatsApp:string;
+  socialSituationnstagram:string;
+  work:string;
+  graduated:string;
   profilePhotos:Image[];
   coverPhotos:Image[];
 }

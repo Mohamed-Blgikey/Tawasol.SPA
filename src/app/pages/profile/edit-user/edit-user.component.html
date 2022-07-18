@@ -1,0 +1,104 @@
+<div class="d-flex w-100 h-100" style="justify-content: center; align-items: center;">
+  <div>
+    <form [formGroup]="EditUserFrom" (ngSubmit)="Edit(EditUserFrom)" class="ms-auto" style="width: 95%;">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" matInput placeholder="*First Name">
+            <mat-icon matSuffix><i class="fa-solid fa-user"></i></mat-icon>
+            <mat-error *ngIf="EditUserFrom.get('firstName')?.hasError('required')">First Name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" matInput placeholder="*Last Name">
+            <mat-icon matSuffix><i class="fa-solid fa-user"></i></mat-icon>
+            <mat-error *ngIf="EditUserFrom.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Country</mat-label>
+            <input formControlName="country" matInput placeholder="*Country">
+            <mat-icon matSuffix><i class="fa-solid fa-location-pin"></i></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>City</mat-label>
+            <input formControlName="city" matInput placeholder="*City">
+            <mat-icon matSuffix><i class="fa-solid fa-house-chimney-window"></i></mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>WhatsApp</mat-label>
+            <input formControlName="whatsApp" matInput placeholder="*whatsApp">
+            <mat-icon matSuffix><i class="fa-brands fa-whatsapp"></i></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Instagram</mat-label>
+            <input formControlName="instagram" matInput placeholder="*Instagram">
+            <mat-icon matSuffix><i class="fa-brands fa-instagram"></i></mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Work</mat-label>
+            <input formControlName="work" matInput placeholder="*Work">
+            <mat-icon matSuffix><i class="fa-solid fa-briefcase"></i></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Graduated</mat-label>
+            <input formControlName="graduated" matInput placeholder="*Graduated">
+            <mat-icon matSuffix><i class="fa-solid fa-graduation-cap"></i></mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Relationship</mat-label>
+            <mat-select formControlName="socialSituationnstagram" disableRipple>
+              <mat-option value="InRelationship">InRelationship</mat-option>
+              <mat-option value="Single">Single</mat-option>
+              <mat-option value="Marred">Marred</mat-option>
+              <mat-option value="Engaged">Engaged</mat-option>
+              <mat-option value="">Remove</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <div class="pt-2 pb-4">
+
+            <mat-radio-group formControlName="gender" aria-label="Select an option">
+              <mat-radio-button value=true>Male</mat-radio-button>
+              <mat-radio-button class="ms-3" value=false>Female</mat-radio-button>
+              <mat-error *ngIf="EditUserFrom.get('gender')?.hasError('required') && EditUserFrom.get('gender')?.touched">Gender is required</mat-error>
+
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+          <button [disabled]="EditUserFrom.invalid" mat-flat-button color="primary" class="w-100">Edit</button>
+    </form>
+
+
+  </div>
+</div>

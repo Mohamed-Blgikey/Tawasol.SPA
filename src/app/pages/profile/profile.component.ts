@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { EditCoverComponent } from './edit-cover/edit-cover.component';
 import { EditPhotoComponent } from './edit-photo/edit-photo.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { ShowImageComponent } from './show-image/show-image.component';
 
 @Component({
@@ -23,6 +24,10 @@ export class ProfileComponent implements OnInit ,OnDestroy{
   EditOn:boolean = false;
   viewEditCover:boolean = false;
   MainCover:Image|any;
+
+
+  EditNameMode = false;
+
 
   User!:User;
   UserImage!:Image[];
@@ -55,8 +60,10 @@ export class ProfileComponent implements OnInit ,OnDestroy{
       this.User = res['user'].data
       this.UserImage = this.User.profilePhotos.reverse();
       this.UserCover = this.User.coverPhotos.reverse();
-      this.MainCover = this.User.coverPhotos.find(c=>c.isMain) ;
-      // console.log(this.MainCover);
+      if (this.User.coverUrl != "https://res.cloudinary.com/dz0g6ou0i/image/upload/v1654960873/defualt_w4v99c.png") {
+        this.MainCover = this.User.coverPhotos.find(c=>c.isMain) ;
+      }
+      // console.log(this.User);
     })
 
 
@@ -69,6 +76,7 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     this.sub3 = this.auth.newCover.subscribe(()=>{
       if (this.auth.newCover['_value'] != '') {
         this.User.coverUrl = this.auth.newCover['_value']
+        this.MainCover = this.User.coverPhotos.find(c=>c.isMain) ;
       }
     })
   }
@@ -93,6 +101,13 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     })
   }
 
+  openDialogEditDetials(obj:User){
+    this.dialog.open(EditUserComponent,{
+      data:obj,
+      width:"400px"
+    })
+  }
+
 
   CoverViewEdit(){
     // console.log(this.MainCover);
@@ -100,7 +115,7 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     this.http.Put(UserApi.CoverViewEdit,this.MainCover).subscribe(
       res=>{
         this.alert.close("CloseLoading");
-        console.log(res);
+        // console.log(res);
         if (res.message == 'success') {
           this.alert.success(res.message)
         }else{

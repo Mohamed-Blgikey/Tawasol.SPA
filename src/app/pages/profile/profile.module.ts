@@ -12,6 +12,7 @@ import { ShowImageComponent } from './show-image/show-image.component';
 import { MyPostsComponent } from './my-posts/my-posts.component';
 import { MyFriendComponent } from './my-friend/my-friend.component';
 import { MyPhotosComponent } from './my-photos/my-photos.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MyPhotosComponent } from './my-photos/my-photos.component';
     MyPostsComponent,
     MyFriendComponent,
     MyPhotosComponent,
+    EditUserComponent,
   ],
   imports: [
     CommonModule,

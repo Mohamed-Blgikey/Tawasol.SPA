@@ -36,7 +36,7 @@
                   <input formControlName="email" matInput placeholder="*Ex/ abc@abc.abc">
                   <mat-icon matSuffix><i class="fa-brands fa-google"></i></mat-icon>
                   <mat-error *ngIf="SignupFrom.get('email')?.hasError('required')">Email is required</mat-error>
-                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('pattern')">Please enter your gmail</mat-error>
+                  <mat-error *ngIf="SignupFrom.get('email')?.hasError('pattern')">Please enter your gmail or outlook</mat-error>
                 </mat-form-field>
             <div class="row">
               <div class="col-6">

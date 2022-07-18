@@ -21,9 +21,14 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
   postImagePreview:string [] = [];
   postVedioPreview:string [] = [];
   Caption:string = '';
+
+
+
+
+
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
-  constructor(private http:HttpService,private auth:AuthService,private active:ActivatedRoute) { }
+  constructor(private auth:AuthService,private active:ActivatedRoute) { }
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
     this.sub2?.unsubscribe();

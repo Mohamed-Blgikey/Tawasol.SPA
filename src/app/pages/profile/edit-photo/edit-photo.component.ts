@@ -93,7 +93,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     let updateRange:Image[] = [] ;   updateRange.push(old);  updateRange.push(photo);
 
     // console.log(updateRange);
-    this.sub2 = this.http.Post(`${UserApi.SetMain}/profile`,updateRange).subscribe(res=>{
+    this.sub2 = this.http.Put(`${UserApi.SetMain}/profile`,updateRange).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
         this.alert.success("Image changed ^_^ ")
@@ -127,7 +127,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
             let newPhoto = this.MyPhoto[0];
             // console.log(newPhoto);
             let photos:Image[] = []; photos.push(newPhoto);
-            this.sub4 = this.http.Post(`${UserApi.SetMain}/profile`,photos).subscribe(res=>{
+            this.sub4 = this.http.Put(`${UserApi.SetMain}/profile`,photos).subscribe(res=>{
               if (res.message == 'success') {
                 localStorage.setItem('newPhoto',photos[0].url)
               }else{

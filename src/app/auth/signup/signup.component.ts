@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
   }
   private CreateForm(){
     this.SignupFrom = this.fb.group({
-      email:['', [Validators.required, Validators.email,Validators.pattern('^[A-Za-z0-9._%+-]{1,}(@gmail.com|@GMAIL.COM)$')]],
+      email:['', [Validators.required, Validators.email,Validators.pattern('^[A-Za-z0-9._%+-]{1,}@(gmail|GMAIL|outlook|OUTLOOK).(COM|com)$')]],
       password:['',[Validators.required,Validators.minLength(6)]],
       cpassword:['',[Validators.required,Validators.minLength(6)]],
       firstName:['',[Validators.required]],

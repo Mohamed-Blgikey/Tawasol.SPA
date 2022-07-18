@@ -5,14 +5,13 @@
 
       <div  class="p-3 rounded" style="background-color: #2b2d2e;">
         <h2>Brief about me</h2>
-        <p><i class="fa-solid fa-briefcase pe-3"></i> work at: dasdasdsad</p>
-        <p><i class="fa-solid fa-briefcase pe-3"></i> work at: aaaaaaaa</p>
-        <p><i class="fa-solid fa-graduation-cap pe-3"></i>Graduated from: FCAI</p>
-        <p><i class="fa-solid fa-location-pin pe-3 ps-1"></i>Egypt</p>
-        <p><i class="fa-solid fa-house-chimney-window pe-3"></i>Beni Suef</p>
-        <p><i class="fa-brands fa-instagram pe-3"></i><a href="https://www.google.com/?hl=ar">{{User.fullName}}</a></p>
-        <p><i class="fa-brands fa-whatsapp pe-3"></i>01124276092</p>
-        <p><i class="fa-solid fa-heart pe-3"></i> Single</p>
+        <p *ngIf="User.work&& User.work != 'null'"><i class="fa-solid fa-briefcase pe-3"></i> work at: {{User.work}}</p>
+        <p *ngIf="User.graduated&& User.graduated != 'null'"><i class="fa-solid fa-graduation-cap pe-3"></i>Graduated from: {{User.graduated}}</p>
+        <p *ngIf="User.country&& User.country != 'null'"><i class="fa-solid fa-location-pin pe-3 ps-1"></i>{{User.country}}</p>
+        <p *ngIf="User.city && User.city != 'null'"><i class="fa-solid fa-house-chimney-window pe-3"></i>{{User.city}}</p>
+        <p *ngIf="User.instagram && User.instagram != 'null'"><i class="fa-brands fa-instagram pe-3"></i><a [href]="User.instagram">{{User.fullName}}</a></p>
+        <p *ngIf="User.whatsApp && User.whatsApp != 'null'"><i class="fa-brands fa-whatsapp pe-3"></i>{{User.whatsApp}}</p>
+        <p *ngIf="User.socialSituationnstagram && User.socialSituationnstagram != 'null'"><i [ngClass]="User.socialSituationnstagram == 'Single'?'fa-heart': User.socialSituationnstagram == 'InRelationship'?'fa-face-grin-hearts':User.socialSituationnstagram == 'Marred'?'fa-face-kiss-wink-heart':'fa-hand-holding-heart'" class="fa-solid pe-3"></i> {{User.socialSituationnstagram}}</p>
       </div>
     </div>
     <div class="col-sm-8 p-2" >
