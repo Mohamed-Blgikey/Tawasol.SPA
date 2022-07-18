@@ -1,11 +1,14 @@
 import { AfterContentInit, AfterViewChecked, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { Subscription } from 'rxjs';
+import { UserApi } from 'src/app/core/APIS/User';
 import { ApiResponse } from 'src/app/core/Models/api-response';
 import { Image } from 'src/app/core/Models/profile-image';
 import { User } from 'src/app/core/Models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { HttpService } from 'src/app/core/services/http.service';
 import { EditCoverComponent } from './edit-cover/edit-cover.component';
 import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 import { ShowImageComponent } from './show-image/show-image.component';
@@ -15,17 +18,20 @@ import { ShowImageComponent } from './show-image/show-image.component';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
+export class ProfileComponent implements OnInit ,OnDestroy{
+
+  EditOn:boolean = false;
+  viewEditCover:boolean = false;
+  MainCover:Image|any;
+
   User!:User;
   UserImage!:Image[];
   UserCover!:Image[];
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
   sub3:Subscription|undefined;
-  constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService,private router:Router) { }
-  ngAfterContentInit(): void {
-    // this.isLoading = false
-  }
+  constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
+
 
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
@@ -49,7 +55,8 @@ export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
       this.User = res['user'].data
       this.UserImage = this.User.profilePhotos.reverse();
       this.UserCover = this.User.coverPhotos.reverse();
-      // console.log(this.User);
+      this.MainCover = this.User.coverPhotos.find(c=>c.isMain) ;
+      // console.log(this.MainCover);
     })
 
 
@@ -84,6 +91,23 @@ export class ProfileComponent implements OnInit ,OnDestroy,AfterContentInit{
       data:obj,
       width : '400px'
     })
+  }
+
+
+  CoverViewEdit(){
+    // console.log(this.MainCover);
+    this.alert.loading("Editing Cover in ...",{duration:10000000000000,id:"CloseLoading"});
+    this.http.Put(UserApi.CoverViewEdit,this.MainCover).subscribe(
+      res=>{
+        this.alert.close("CloseLoading");
+        console.log(res);
+        if (res.message == 'success') {
+          this.alert.success(res.message)
+        }else{
+          this.alert.error(res.message)
+        }
+      }
+    )
   }
 
 }

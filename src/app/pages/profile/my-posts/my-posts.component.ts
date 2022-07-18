@@ -34,7 +34,7 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
       this.User = res['user'].data
       this.UserImage = this.User.profilePhotos.reverse();
       this.UserCover = this.User.coverPhotos.reverse();
-      console.log(this.User);
+      // console.log(this.User);
     })
 
     this.sub2 = this.auth.newPhoto.subscribe(()=>{

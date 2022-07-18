@@ -6,6 +6,9 @@ export const UserApi = {
   SetMain:"Photos/SetMain",
 
 
+  CoverViewEdit:"Photos/CoverViewEdit",
+
+
   DeleteImage:"Photos/DeleteImage"
 
 }

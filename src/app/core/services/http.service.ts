@@ -20,6 +20,10 @@ export class HttpService {
     return this.http.post<ApiResponse>(this.FullPath(EndPoint),obj)
   }
 
+  Put(EndPoint:string,obj:any = null):Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.FullPath(EndPoint),obj)
+  }
+
   Delete(EndPoint:string,obj:any = null):Observable<any>{
     return this.http.delete(this.FullPath(EndPoint),obj)
   }
