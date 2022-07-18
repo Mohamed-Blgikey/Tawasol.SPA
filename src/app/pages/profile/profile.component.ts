@@ -32,6 +32,8 @@ export class ProfileComponent implements OnInit ,OnDestroy{
   User!:User;
   UserImage!:Image[];
   UserCover!:Image[];
+
+  CurrentUserId:string = '';
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
   sub3:Subscription|undefined;
@@ -53,7 +55,7 @@ export class ProfileComponent implements OnInit ,OnDestroy{
 // }
 
   ngOnInit(): void {
-
+    this.CurrentUserId = this.auth.user['_value'].nameid;
 
 
     this.sub1 = this.active.data.subscribe((res)=>{

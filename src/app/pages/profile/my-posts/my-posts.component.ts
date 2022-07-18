@@ -21,6 +21,7 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
   postImagePreview:string [] = [];
   postVedioPreview:string [] = [];
   Caption:string = '';
+  CurrentUserId:string = '';
 
 
 
@@ -35,6 +36,7 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
   }
 
   ngOnInit(): void {
+    this.CurrentUserId = this.auth.user['_value'].nameid;
     this.sub1 = this.active.data.subscribe((res)=>{
       this.User = res['user'].data
       this.UserImage = this.User.profilePhotos.reverse();
