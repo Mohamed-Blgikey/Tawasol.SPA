@@ -31,15 +31,7 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
 
   ngOnInit(): void {
     this.MyPhoto = this.data;
-    // signalR
-    this.usersHub.hubConnection.on("EditImageProfile",(res:Image[])=>{
-      // console.log(res);
-      this.MyPhoto = res;
-    });
-    this.usersHub.hubConnection.on("DeleteProfile",(res:Image)=>{
-      // console.log(res);
-      let indexPhotoDelete = this.MyPhoto.findIndex(s=>s.id == res.id);  this.MyPhoto.splice(indexPhotoDelete,1);
-    });
+
   }
 
   ngOnDestroy(): void {

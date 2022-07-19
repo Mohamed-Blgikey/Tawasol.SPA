@@ -19,20 +19,6 @@ export class NavbarComponent implements OnInit {
     this.PhotoUrl = this.auth.user['_value'].photoUrl;
     this.CurrentUserId = this.auth.user['_value'].nameid;
     // console.log(this.CurrentUserId);
-
-    // signalR
-    this.usersHub.hubConnection.on("EditImageProfile",(res:Image[])=>{
-      // console.log(res);
-      let Main:any = res.find(i=>i.isMain)?.url;
-      this.PhotoUrl = Main;
-    });
-
-    this.usersHub.hubConnection.on("MainProfile",(res:Image[])=>{
-      let Main:any = res.find(i=>i.isMain)?.url;
-      this.PhotoUrl = Main;
-
-    })
-
   }
 
   logOut(){

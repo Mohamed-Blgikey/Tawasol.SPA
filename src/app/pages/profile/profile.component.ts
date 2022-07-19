@@ -80,26 +80,8 @@ export class ProfileComponent implements OnInit ,OnDestroy{
       this.User.whatsApp = res.whatsApp; this.User.instagram = res.instagram;
       this.User.work = res.work; this.User.socialSituationnstagram = res.socialSituationnstagram;
       this.User.graduated = res.graduated;
-      console.log(res);
-    })
-
-    this.usersHub.hubConnection.on("EditImageProfile",(res:Image[])=>{
       // console.log(res);
-      this.User.profilePhotos = res
-      let Main:any = res.find(i=>i.isMain)?.url;
-      this.User.photoUrl = Main;
-      this.UserImage = this.User.profilePhotos.reverse();
-    });
-
-    this.usersHub.hubConnection.on("MainProfile",(res:Image[])=>{
-      let Main:any = res.find(i=>i.isMain)?.url;
-      this.User.photoUrl = Main;
-
     })
-
-
-
-
 
   }
 
