@@ -71,21 +71,24 @@
 
 <div  style="background-color: #2b2d2e;" class="pt-5">
   <div class="container" >
-    <ul class="nav nav-tabs" style="border-top:1px  solid gray ;border-bottom: 0px  solid gray !important ;">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="posts" [queryParams]="{id:User.id}"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Posts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="photos" [queryParams]="{id:User.id}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Photos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="friends" [queryParams]="{id:User.id}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Friends</a>
-      </li>
+    <nav>
+      <div class="nav nav-tabs" style="border: 0px !important;" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-posts-tab" data-bs-toggle="tab" data-bs-target="#nav-posts" type="button" role="tab" aria-controls="nav-posts" aria-selected="true">Posts</button>
+        <button class="nav-link" id="nav-photos-tab" data-bs-toggle="tab" data-bs-target="#nav-photos" type="button" role="tab" aria-controls="nav-photos" aria-selected="false">Photos</button>
+        <button class="nav-link" id="nav-friends-tab" data-bs-toggle="tab" data-bs-target="#nav-friends" type="button" role="tab" aria-controls="nav-friends" aria-selected="false">Friends</button>
+      </div>
+    </nav>
 
-    </ul>
   </div>
 </div>
 
 <div class="container pt-5">
-  <router-outlet></router-outlet>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-posts" role="tabpanel" aria-labelledby="nav-posts-tab">
+      <app-my-posts [User]="User"></app-my-posts>
+    </div>
+    <div class="tab-pane fade" id="nav-photos" role="tabpanel" aria-labelledby="nav-photos-tab">...</div>
+    <div class="tab-pane fade" id="nav-friends" role="tabpanel" aria-labelledby="nav-friends-tab">...</div>
+  </div>
 </div>

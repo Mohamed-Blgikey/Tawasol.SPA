@@ -7,6 +7,7 @@ import { UserApi } from 'src/app/core/APIS/User';
 import { Image } from 'src/app/core/Models/profile-image';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { UsersHubService } from 'src/app/core/services/users-hub.service';
 
 @Component({
   selector: 'app-edit-photo',
@@ -26,10 +27,19 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     f:new FormControl('',[Validators.required])
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Image[],private fb:FormBuilder,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
+  constructor(private usersHub:UsersHubService, @Inject(MAT_DIALOG_DATA) public data: Image[],private fb:FormBuilder,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
 
   ngOnInit(): void {
     this.MyPhoto = this.data;
+    // signalR
+    this.usersHub.hubConnection.on("EditImageProfile",(res:Image[])=>{
+      // console.log(res);
+      this.MyPhoto = res;
+    });
+    this.usersHub.hubConnection.on("DeleteProfile",(res:Image)=>{
+      // console.log(res);
+      let indexPhotoDelete = this.MyPhoto.findIndex(s=>s.id == res.id);  this.MyPhoto.splice(indexPhotoDelete,1);
+    });
   }
 
   ngOnDestroy(): void {
@@ -68,12 +78,8 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
     this.sub1 = this.http.Post(UserApi.UploadImage,this.createPhoto).subscribe(res=>{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
-        this.MyPhoto.forEach(e=>{e.isMain = false})
         this.alert.success("Image changed ^_^ ")
         // console.log(res.data);
-        this.MyPhoto.unshift(res.data)
-        localStorage.setItem('newPhoto',this.MyPhoto[0].url)
-        this.auth.newPhoto.next(this.MyPhoto[0].url);
         this.createPhoto.delete("File");
         this.createPhoto.delete("UserId");
         this.createPhoto.delete("Type");
@@ -97,13 +103,11 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
         this.alert.success("Image changed ^_^ ")
-        localStorage.setItem('newPhoto',photo.url)
       }else{
         this.alert.error(res.message+' ' + res.code);
         old.isMain = true;
         photo.isMain = false;
       }
-      this.auth.newPhoto.next(photo.url);
     })
     // console.log(photo);
 
@@ -120,7 +124,6 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
       this.alert.close("CloseLoading");
       if (res.message == "success") {
         this.alert.success("Image Deleted ^_^ ")
-        let indexPhotoDelete = this.MyPhoto.findIndex(s=>s.id == photo.id);  this.MyPhoto.splice(indexPhotoDelete,1);
         if (photo.isMain) {
           if (this.MyPhoto.length>0) {
             this.MyPhoto[0].isMain = true;
@@ -129,16 +132,11 @@ export class EditPhotoComponent implements OnInit ,OnDestroy{
             let photos:Image[] = []; photos.push(newPhoto);
             this.sub4 = this.http.Put(`${UserApi.SetMain}/profile`,photos).subscribe(res=>{
               if (res.message == 'success') {
-                localStorage.setItem('newPhoto',photos[0].url)
               }else{
                 this.alert.error(res.message+' ' + res.code);
               }
             })
-            this.auth.newPhoto.next(this.MyPhoto[0].url);
           }else{
-            let defualt:string = "https://res.cloudinary.com/dz0g6ou0i/image/upload/v1654960873/defualt_w4v99c.png";
-            this.auth.newPhoto.next(defualt);
-            localStorage.setItem('newPhoto',defualt)
 
           }
           // console.log(y[0]);

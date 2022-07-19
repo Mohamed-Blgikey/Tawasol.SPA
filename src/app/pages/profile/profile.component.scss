@@ -19,15 +19,16 @@
   }
 }
 
-.nav-item,.nav-link{
-  color: rgb(152, 152, 152) !important;
-  cursor: pointer;
-  border: 0px !important;
-  padding-top: 10px;
+nav{
+  border-top: 1px solid rgb(174, 174, 174);
 }
-.nav-item,.nav-link:hover{
+.nav-link{
+  color: rgb(152, 152, 152) !important;
+  border: 0px !important;
+  padding-top: 20px;
+}
+.nav-link:hover{
   color: white !important;
-
 }
 .active{
   background-color: transparent !important;

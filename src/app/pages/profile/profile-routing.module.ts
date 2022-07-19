@@ -12,29 +12,7 @@ const routes: Routes = [
     component:ProfileComponent,
     resolve:{
       user:UserDetailsResolver
-    },
-    children:[
-      {
-        path:'',
-        redirectTo:'posts',
-        pathMatch:'full'
-      },
-      {
-        path:'posts',
-        component:MyPostsComponent,
-        resolve:{
-          user:UserDetailsResolver
-        }
-      },
-      {
-        path:'photos',
-        component:MyPhotosComponent
-      },
-      {
-        path:'friends',
-        component:MyFriendComponent
-      }
-    ]
+    }
   }
 ];
 

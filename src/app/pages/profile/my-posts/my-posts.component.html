@@ -5,8 +5,8 @@
 
       <div  class="p-3 rounded" style="background-color: #2b2d2e;">
         <h2>Brief about me</h2>
-        <p *ngIf="User.work&& User.work != 'null'"><i class="fa-solid fa-briefcase pe-3"></i> work at: {{User.work}}</p>
-        <p *ngIf="User.graduated&& User.graduated != 'null'"><i class="fa-solid fa-graduation-cap pe-3"></i>Graduated from: {{User.graduated}}</p>
+        <p *ngIf="User.work&& User.work != 'null'"><i class="fa-solid fa-briefcase pe-3"></i> {{User.work}}</p>
+        <p *ngIf="User.graduated&& User.graduated != 'null'"><i class="fa-solid fa-graduation-cap pe-3"></i>{{User.graduated}}</p>
         <p *ngIf="User.country&& User.country != 'null'"><i class="fa-solid fa-location-pin pe-3 ps-1"></i>{{User.country}}</p>
         <p *ngIf="User.city && User.city != 'null'"><i class="fa-solid fa-house-chimney-window pe-3"></i>{{User.city}}</p>
         <p *ngIf="User.instagram && User.instagram != 'null'"><i class="fa-brands fa-instagram pe-3"></i><a [href]="User.instagram">{{User.fullName}}</a></p>

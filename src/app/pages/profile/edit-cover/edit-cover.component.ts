@@ -71,9 +71,6 @@ export class EditCoverComponent implements OnInit,OnDestroy {
         this.MyPhoto.forEach(e=>{e.isMain = false})
         this.alert.success("Image changed ^_^ ")
         // console.log(res.data);
-        this.MyPhoto.unshift(res.data)
-        localStorage.setItem('newCover',this.MyPhoto[0].url)
-        this.auth.newCover.next(this.MyPhoto[0].url);
         this.createPhoto.delete("File");
         this.createPhoto.delete("UserId");
         this.createPhoto.delete("Type");
@@ -97,13 +94,11 @@ export class EditCoverComponent implements OnInit,OnDestroy {
       this.alert.close("CloseLoading");
       if (res.message == 'success') {
         this.alert.success("Image changed ^_^ ")
-        localStorage.setItem('newCover',photo.url)
       }else{
         this.alert.error(res.message+' ' + res.code);
         old.isMain = true;
         photo.isMain = false;
       }
-      this.auth.newCover.next(photo.url);
     })
     // console.log(photo);
 
@@ -127,17 +122,11 @@ export class EditCoverComponent implements OnInit,OnDestroy {
             let photos:Image[] = []; photos.push(newPhoto);
             this.sub4 = this.http.Put(`${UserApi.SetMain}/cover`,photos).subscribe(res=>{
               if (res.message == 'success') {
-                localStorage.setItem('newCover',photos[0].url)
               }else{
                 this.alert.error(res.message+' ' + res.code);
               }
             })
-            this.auth.newCover.next(this.MyPhoto[0].url);
           }else{
-            let defualt:string = "https://res.cloudinary.com/dz0g6ou0i/image/upload/v1654960873/defualt_w4v99c.png";
-            this.auth.newCover.next(defualt);
-            localStorage.setItem('newCover',defualt)
-
           }
           // console.log(y[0]);
         }

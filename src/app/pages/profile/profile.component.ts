@@ -9,6 +9,7 @@ import { Image } from 'src/app/core/Models/profile-image';
 import { User } from 'src/app/core/Models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { UsersHubService } from 'src/app/core/services/users-hub.service';
 import { EditCoverComponent } from './edit-cover/edit-cover.component';
 import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -37,13 +38,14 @@ export class ProfileComponent implements OnInit ,OnDestroy{
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
   sub3:Subscription|undefined;
-  constructor(private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
+  constructor(private usersHub:UsersHubService, private active:ActivatedRoute,private dialog: MatDialog,private auth:AuthService,private http:HttpService,private alert:HotToastService) { }
 
 
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
     this.sub2?.unsubscribe();
     this.sub3?.unsubscribe();
+    this.usersHub.StopConnection();
   }
 
 //   @HostListener('window:scroll', ['$event']) onScrollEvent($event:any) {
@@ -69,18 +71,36 @@ export class ProfileComponent implements OnInit ,OnDestroy{
     })
 
 
-    this.sub2 = this.auth.newPhoto.subscribe(()=>{
-      if (this.auth.newPhoto['_value'] != '') {
-        this.User.photoUrl = this.auth.newPhoto['_value']
-      }
+
+    // signalR
+    this.usersHub.OpenConnection();
+    this.usersHub.hubConnection.on("EditDetails",(res:User)=>{
+      this.User.fullName = res.fullName; this.User.gender = res.gender;
+      this.User.city = res.city; this.User.country = res.country;
+      this.User.whatsApp = res.whatsApp; this.User.instagram = res.instagram;
+      this.User.work = res.work; this.User.socialSituationnstagram = res.socialSituationnstagram;
+      this.User.graduated = res.graduated;
+      console.log(res);
     })
 
-    this.sub3 = this.auth.newCover.subscribe(()=>{
-      if (this.auth.newCover['_value'] != '') {
-        this.User.coverUrl = this.auth.newCover['_value']
-        this.MainCover = this.User.coverPhotos.find(c=>c.isMain) ;
-      }
+    this.usersHub.hubConnection.on("EditImageProfile",(res:Image[])=>{
+      // console.log(res);
+      this.User.profilePhotos = res
+      let Main:any = res.find(i=>i.isMain)?.url;
+      this.User.photoUrl = Main;
+      this.UserImage = this.User.profilePhotos.reverse();
+    });
+
+    this.usersHub.hubConnection.on("MainProfile",(res:Image[])=>{
+      let Main:any = res.find(i=>i.isMain)?.url;
+      this.User.photoUrl = Main;
+
     })
+
+
+
+
+
   }
 
 

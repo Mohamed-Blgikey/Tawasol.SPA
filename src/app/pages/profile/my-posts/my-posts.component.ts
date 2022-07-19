@@ -14,8 +14,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class MyPostsComponent implements OnInit ,OnDestroy{
   isLoad:boolean = false;
-  User!:User;
-  userId:string ='';
   UserImage!:Image[];
   UserCover!:Image[];
   postImagePreview:string [] = [];
@@ -24,12 +22,14 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
   CurrentUserId:string = '';
 
 
+  @Input() User!:User;
 
 
 
   sub1:Subscription|undefined;
   sub2:Subscription|undefined;
   constructor(private auth:AuthService,private active:ActivatedRoute) { }
+
   ngOnDestroy(): void {
     this.sub1?.unsubscribe();
     this.sub2?.unsubscribe();
@@ -37,23 +37,7 @@ export class MyPostsComponent implements OnInit ,OnDestroy{
 
   ngOnInit(): void {
     this.CurrentUserId = this.auth.user['_value'].nameid;
-    this.sub1 = this.active.data.subscribe((res)=>{
-      this.User = res['user'].data
-      this.UserImage = this.User.profilePhotos.reverse();
-      this.UserCover = this.User.coverPhotos.reverse();
-      // console.log(this.User);
-    })
-
-    this.sub2 = this.auth.newPhoto.subscribe(()=>{
-      if (this.auth.newPhoto['_value'] != '') {
-        this.User.photoUrl = this.auth.newPhoto['_value']
-      }else{
-        if (localStorage.getItem('newPhoto') != null) {
-          let x:any = localStorage.getItem('newPhoto');
-          this.User.photoUrl = x;
-        }
-      }
-    })
+    // console.log(this.User);
   }
 
   UploadPost(e:any){
