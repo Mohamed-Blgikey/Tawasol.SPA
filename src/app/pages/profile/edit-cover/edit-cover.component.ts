@@ -113,7 +113,6 @@ export class EditCoverComponent implements OnInit,OnDestroy {
       this.alert.close("CloseLoading");
       if (res.message == "success") {
         this.alert.success("Image Deleted ^_^ ")
-        let indexPhotoDelete = this.MyPhoto.findIndex(s=>s.id == photo.id);  this.MyPhoto.splice(indexPhotoDelete,1);
         if (photo.isMain) {
           if (this.MyPhoto.length>0) {
             this.MyPhoto[0].isMain = true;

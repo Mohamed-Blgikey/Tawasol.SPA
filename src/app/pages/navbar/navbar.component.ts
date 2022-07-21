@@ -19,6 +19,12 @@ export class NavbarComponent implements OnInit {
     this.PhotoUrl = this.auth.user['_value'].photoUrl;
     this.CurrentUserId = this.auth.user['_value'].nameid;
     // console.log(this.CurrentUserId);
+
+    this.auth.newPhoto.subscribe(res=>{
+      if (res != '') {
+        this.PhotoUrl = res;
+      }
+    })
   }
 
   logOut(){
